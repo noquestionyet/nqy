@@ -1,5 +1,4 @@
 /* eslint-disable semi */
-// we deployed everything to cloudfare pages
 // main variables
 let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
@@ -54,10 +53,8 @@ quizForms.forEach((quizForm) => {
   let questionsNumber = 0;
   for (let i = 0; i < questionSteps.length; i++) {
     const questionAttribute = questionSteps[i].getAttribute('nqy-step');
-    console.log(questionAttribute)
     questionAttribute !== 'final' ? questionsNumber++ : null;
   }
-  console.log(questionsNumber)
   // show the total amount of questions
   const totalQuestionsNumbers = quizForm.querySelectorAll('[nqy-question="total"]');
   totalQuestionsNumbers.forEach((totalQuestionsNumber) => {
@@ -392,7 +389,6 @@ function savePoints (currentQuestion) {
 function saveTotalAnswers (currentQuestion) {
   let currentQuestionStateBoolean = 0;
   const currentQuestionStates = currentQuestion.querySelectorAll('[nqy-state]');
-  console.log(currentQuestionStates)
   if (currentQuestionStates.length !== 0) {
     currentQuestionStates.forEach((currentQuestionState) => {
       if (currentQuestionState.type === 'radio' && currentQuestionState.checked) {
@@ -453,7 +449,6 @@ function showResult () {
     }
   }
   if (answerNumber.length !== 0) {
-    console.log(answerNumber)
     for (let i = 0; i < answerNumber.length; i++) {
       answerNumber[i].innerHTML = pointFinalSum;
     }
@@ -474,9 +469,7 @@ function pointSum () {
   if (answerString) {
     const answerArray = answerString.split(',');
     for (let i = 0; i < answerArray.length; i++) {
-      console.log(answerArray[i])
       answerArray[i] === 'true' ? pointSum++ : null;
-      console.log(pointSum)
     }
   }
   return pointSum;
