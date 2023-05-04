@@ -1,5 +1,5 @@
 /* eslint-disable semi */
-// this is the latest commit to main
+// we deployed everything to cloudfare pages
 // main variables
 let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
