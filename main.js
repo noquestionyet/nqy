@@ -1,10 +1,10 @@
 /* eslint-disable semi */
-// add CSS rules for steps so there is no flickering animation on page load
-function stepsHideCSS () {
-  const style = document.createElement('style');
-  const cssRule = '*[nqy-step] { display: none; }';
-  style.appendChild(document.createTextNode(cssRule));
-  document.head.appendChild(style);
+// first of all hide absolutely all steps
+function hideSteps () {
+  const questionSteps = document.querySelectorAll('[nqy-step]');
+  for (let i = 0; i < questionSteps.length; i++) {
+    questionSteps[i].style.display = 'none';
+  }
 }
 
 // main variables
@@ -72,7 +72,7 @@ quizForms.forEach((quizForm) => {
   createProgress(quizForm);
   // hide all questions apart the first
   for (let i = 0; i < questionSteps.length; i++) {
-    questionSteps[i].hide();
+    questionSteps[i].style.display = 'none';
     if (i === 0) {
       questionSteps[i].style.display = 'block';
       questionSteps[i].classList.add('current-question');
@@ -739,23 +739,6 @@ window.onload = () => {
   sessionStorage.clear();
 }
 
-// DOM observer to hide the steps immediatly on load to avoid flickering
-function observeDOM (callback) {
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.addedNodes.length) {
-        callback(mutation.addedNodes[0]);
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  observeDOM((addedNode) => {
-    if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.hasAttribute('nqy-step')) {
-      addedNode.style.display = 'none';
-    }
-  });
+  hideSteps()
 });
