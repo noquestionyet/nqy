@@ -1,10 +1,9 @@
 /* eslint-disable semi */
-// first of all hide absolutely all steps
-function hideSteps () {
-  const questionSteps = document.querySelectorAll('[nqy-step]');
-  for (let i = 0; i < questionSteps.length; i++) {
-    questionSteps[i].style.display = 'none';
-  }
+// set the CSS rules
+function hideStepsCss () {
+  const styleElement = document.createElement('style');
+  styleElement.innerHTML = '[nqy-step] { display: none; }';
+  document.head.appendChild(styleElement);
 }
 
 // main variables
@@ -51,7 +50,6 @@ function activateScript (activeStatus) {
 }
 
 // hiding all questions apart from the first
-
 const quizForms = document.querySelectorAll('[nqy-form]');
 const formShowers = document.querySelectorAll('[nqy-formshow]');
 quizForms.forEach((quizForm) => {
@@ -733,6 +731,7 @@ function showError (value) {
 
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
+  hideStepsCss();
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   getMemberStatus(currentUserId);
   createToastMessage();
