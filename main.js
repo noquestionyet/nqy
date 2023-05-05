@@ -72,7 +72,7 @@ quizForms.forEach((quizForm) => {
   createProgress(quizForm);
   // hide all questions apart the first
   for (let i = 0; i < questionSteps.length; i++) {
-    questionSteps[i].style.display = 'none';
+    questionSteps[i].hide();
     if (i === 0) {
       questionSteps[i].style.display = 'block';
       questionSteps[i].classList.add('current-question');
