@@ -732,10 +732,30 @@ function showError (value) {
 }
 
 // clear session storage on load
-document.addEventListener('DOMContentLoaded', () => {
-  stepsHideCSS();
+window.onload = () => {
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   getMemberStatus(currentUserId);
   createToastMessage();
   sessionStorage.clear();
-})
+}
+
+// DOM observer to hide the steps immediatly on load to avoid flickering
+function observeDOM (callback) {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.addedNodes.length) {
+        callback(mutation.addedNodes[0]);
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  observeDOM((addedNode) => {
+    if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.hasAttribute('nqy-step')) {
+      addedNode.style.display = 'none';
+    }
+  });
+});
