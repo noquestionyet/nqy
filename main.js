@@ -1,10 +1,4 @@
 /* eslint-disable semi */
-// set the CSS rules
-function hideStepsCss () {
-  const styleElement = document.createElement('style');
-  // styleElement.innerHTML = 'body { display: none; }';
-  document.head.appendChild(styleElement);
-}
 
 // main variables
 let filledState = true;
@@ -731,7 +725,6 @@ function showError (value) {
 
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
-  hideStepsCss();
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   getMemberStatus(currentUserId);
   createToastMessage();
