@@ -732,10 +732,10 @@ function showError (value) {
 }
 
 // clear session storage on load
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
   stepsHideCSS();
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   getMemberStatus(currentUserId);
   createToastMessage();
   sessionStorage.clear();
-}
+})
