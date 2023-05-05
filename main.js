@@ -1,4 +1,12 @@
 /* eslint-disable semi */
+// add CSS rules for steps so there is no flickering animation on page load
+function stepsHideCSS () {
+  const style = document.createElement('style');
+  const cssRule = '*[nqy-step] { display: none; }';
+  style.appendChild(document.createTextNode(cssRule));
+  document.head.appendChild(style);
+}
+
 // main variables
 let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
@@ -725,6 +733,7 @@ function showError (value) {
 
 // clear session storage on load
 window.onload = () => {
+  stepsHideCSS();
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   getMemberStatus(currentUserId);
   createToastMessage();
