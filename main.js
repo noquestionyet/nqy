@@ -2,7 +2,7 @@
 // set the CSS rules
 function hideStepsCss () {
   const styleElement = document.createElement('style');
-  styleElement.innerHTML = '[nqy-step] { display: none; }';
+  styleElement.innerHTML = 'body { display: none; }';
   document.head.appendChild(styleElement);
 }
 
@@ -52,6 +52,7 @@ function activateScript (activeStatus) {
 // hiding all questions apart from the first
 const quizForms = document.querySelectorAll('[nqy-form]');
 const formShowers = document.querySelectorAll('[nqy-formshow]');
+document.body.display = 'block';
 quizForms.forEach((quizForm) => {
   turnOffNativeForm(quizForm);
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
