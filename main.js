@@ -70,6 +70,7 @@ quizForms.forEach((quizForm) => {
     if (i === 0) {
       questionSteps[i].style.display = 'block';
       questionSteps[i].classList.add('current-question');
+      updateProgress(questionSteps[i], quizForm)
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
       } else { checkRequiredFields(questionSteps[i]) }
@@ -246,7 +247,7 @@ function nextQuestion (stepNumber, quizForm) {
       checkRequiredFields(nextQuestion);
       currentQuestionNumber(nextQuestion, stepNumber);
     }
-    updateProgress(stepNumber, quizForm)
+    updateProgress(stepNumber, quizForm);
   } else { validationError(currentQuestion) }
 }
 
