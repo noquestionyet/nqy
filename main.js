@@ -53,7 +53,7 @@ quizForms.forEach((quizForm) => {
   let questionsNumber = 0;
   for (let i = 0; i < questionSteps.length; i++) {
     const questionAttribute = questionSteps[i].getAttribute('nqy-step');
-    if (questionAttribute !== 'final' || questionAttribute !== 'data') {
+    if (questionAttribute !== 'final') {
       questionsNumber++;
     }
   }
@@ -321,7 +321,13 @@ function addProgressCircleScript () {
 // create progress bar
 function createProgress (quizForm) {
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
-  const totalQuestions = questionSteps.length - 1; // because there's always a final step
+  let questionNumber = 0;
+  questionSteps.forEach((questionStep) => {
+    if (questionStep.getAttribute('nqy-step') !== 'final') {
+      questionNumber++;
+    }
+  })
+  const totalQuestions = questionNumber;
   const progressBarPart = document.querySelector('[nqy-progress="progress-part"]');
   const progressCircleIcon = document.querySelector('[nqy-progress="progress-circle-element"]')
   if (progressBarPart) {
@@ -345,7 +351,13 @@ function updateProgress (stepNumber, quizForm) {
   } else {
     const currentQuestionNumber = parseInt(stepNumber.match(/\d+/)[0]);
     const questionSteps = quizForm.querySelectorAll('[nqy-step]');
-    const totalQuestions = questionSteps.length - 1; // because there's always a final step
+    let questionNumber = 0;
+    questionSteps.forEach((questionStep) => {
+      if (questionStep.getAttribute('nqy-step') !== 'final') {
+        questionNumber++;
+      }
+    })
+    const totalQuestions = questionNumber;
     const progress = (currentQuestionNumber / totalQuestions) * 100;
     const progressBar = document.querySelector('[nqy-progress="progress-bar"]');
     const progressBarCircle = document.querySelector('[nqy-progress="progress-circle"]');
