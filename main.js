@@ -236,6 +236,8 @@ function nextQuestion (stepNumber, quizForm) {
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
       showResult();
+    } else if (stepNumber === 'data') {
+      showDbData();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
       nextQuestion.classList.add('current-question');
@@ -424,6 +426,14 @@ function deleteResults () {
   }
 }
 
+// show input field to send to db
+function showDbData () {
+  const dataDbScreens = document.querySelectorAll('[nqy-step="data"]');
+  dataDbScreens.forEach((dataDbScreen) => {
+    dataDbScreen.style.display = 'block';
+  });
+}
+
 // if we have points show the custom result message
 function showResult () {
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
@@ -527,15 +537,15 @@ function getDbData () {
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   sessionStorage.getItem('points') ? totalPoints = sessionStorage.getItem('points') : totalPoints = 'null';
   sessionStorage.getItem('all-answers') ? userAnswers = sessionStorage.getItem('all-answers') : userAnswers = 'null';
-  document.querySelector('[nny-quiz="user-name"]') ? userName = document.querySelector('[nny-quiz="user-name"]').value : userName = 'null';
-  document.querySelector('[nny-quiz="user-email"]') ? userEmail = document.querySelector('[nny-quiz="user-email"]').value : userEmail = 'null';
-  document.querySelector('[nny-quiz="quiz-name"]') ? quizName = document.querySelector('[nny-quiz="quiz-name"]').innerHTML : quizName = 'undefined';
+  document.querySelector('[nqy-quiz="user-name"]') ? userName = document.querySelector('[nqy-quiz="user-name"]').value : userName = 'null';
+  document.querySelector('[nqy-quiz="user-email"]') ? userEmail = document.querySelector('[nqy-quiz="user-email"]').value : userEmail = 'null';
+  document.querySelector('[nqy-quiz="quiz-name"]') ? quizName = document.querySelector('[nqy-quiz="quiz-name"]').innerHTML : quizName = 'undefined';
   sessionStorage.setItem('current-email', userEmail);
   sendPoints(userName, userEmail, quizName, totalPoints, userAnswers, currentUserId);
 }
 
-if (document.querySelector('[nny-quiz="submit"]')) {
-  document.querySelector('[nny-quiz="submit"]').addEventListener('click', getDbData);
+if (document.querySelector('[nqy-quiz="submit"]')) {
+  document.querySelector('[nqy-quiz="submit"]').addEventListener('click', getDbData);
 }
 
 // sending the user results to the db
@@ -570,17 +580,17 @@ function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, cu
       showError(error.message);
     })
     .finally(() => {
-      showResult('true');
+      showResult();
     })
 };
 
 // show the leaderboard
 function showLeaderboard () {
   const leaderboardScreen = document.querySelector('[nny-quiz="leaderboard-result"]');
-  const result = document.querySelector('[nny-quiz="result"]');
+  const result = document.querySelector('[nqy-quiz="result"]');
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
-  const quizName = document.querySelector('[nny-quiz="quiz-name"]').innerHTML;
-  const resultScreen = document.querySelector('[nny-quiz="leaderboard-wrapper"]');
+  const quizName = document.querySelector('[nqy-quiz="quiz-name"]').innerHTML;
+  const resultScreen = document.querySelector('[nqy-quiz="leaderboard-wrapper"]');
   const url =
         `${apiUrl}/member_current/${currentUserId}/${quizName}`
   fetch(url, {
@@ -595,16 +605,16 @@ function showLeaderboard () {
       })
     })
     .then((data) => {
-      const leaderboardParent = document.querySelector('[nny-quiz="leaderboard"]');
+      const leaderboardParent = document.querySelector('[nqy-quiz="leaderboard"]');
       const leaderboardClass = leaderboardParent.className;
       const newParent = document.createElement('div');
       newParent.className = leaderboardClass;
       resultScreen.appendChild(newParent);
-      const leaderboardPositionTemplate = document.querySelector('[nny-quiz="leaderboard-position"]').outerHTML;
-      const leaderboardNameTemplate = document.querySelector('[nny-quiz="leaderboard-name"]').outerHTML;
-      const leaderboardScoreTemplate = document.querySelector('[nny-quiz="leaderboard-score"]').outerHTML;
-      const leaderboardItemTemplate = document.querySelector('[nny-quiz="leaderboard-item"]').outerHTML;
-      const leaderboardItemTemplateStyle = document.querySelector('[nny-quiz="leaderboard-item"]');
+      const leaderboardPositionTemplate = document.querySelector('[nqy-quiz="leaderboard-position"]').outerHTML;
+      const leaderboardNameTemplate = document.querySelector('[nqy-quiz="leaderboard-name"]').outerHTML;
+      const leaderboardScoreTemplate = document.querySelector('[nqy-quiz="leaderboard-score"]').outerHTML;
+      const leaderboardItemTemplate = document.querySelector('[nqy-quiz="leaderboard-item"]').outerHTML;
+      const leaderboardItemTemplateStyle = document.querySelector('[nqy-quiz="leaderboard-item"]');
 
       const leaderboardItemTemplateClassList = leaderboardItemTemplateStyle.classList;
 
@@ -629,17 +639,17 @@ function showLeaderboard () {
             newCurrentParent.className = leaderboardClass;
             newCurrentParent.style.marginTop = '1.5rem';
             resultScreen.appendChild(newCurrentParent);
-            const leaderboardPositionCurrent = document.querySelector('[nny-quiz="leaderboard-position"]');
+            const leaderboardPositionCurrent = document.querySelector('[nqy-quiz="leaderboard-position"]');
             leaderboardPositionCurrent.innerHTML = i + 1;
 
             const leaderboardPositionCurrentDiv = leaderboardPositionCurrent.outerHTML;
 
-            const leaderboardNameCurrent = document.querySelector('[nny-quiz="leaderboard-name"]');
+            const leaderboardNameCurrent = document.querySelector('[nqy-quiz="leaderboard-name"]');
             leaderboardNameCurrent.classList.add('clone');
             leaderboardNameCurrent.innerHTML = data[i].name;
             const leaderboardNameCurrentDiv = leaderboardNameCurrent.outerHTML;
 
-            const leaderboardScoreCurrent = document.querySelector('[nny-quiz="leaderboard-score"]');
+            const leaderboardScoreCurrent = document.querySelector('[nqy-quiz="leaderboard-score"]');
             leaderboardScoreCurrent.innerHTML = data[i].total_points;
             const leaderboardScoreCurrentDiv = leaderboardScoreCurrent.outerHTML;
 
@@ -649,17 +659,17 @@ function showLeaderboard () {
         }
       }
       for (let i = 0; i < loopTime; i++) {
-        const leaderboardPosition = document.querySelector('[nny-quiz="leaderboard-position"]');
+        const leaderboardPosition = document.querySelector('[nqy-quiz="leaderboard-position"]');
         leaderboardPosition.innerHTML = i + 1;
 
         const leaderboardPositionDiv = leaderboardPosition.outerHTML;
 
-        const leaderboardName = document.querySelector('[nny-quiz="leaderboard-name"]');
+        const leaderboardName = document.querySelector('[nqy-quiz="leaderboard-name"]');
         leaderboardName.classList.add('clone');
         leaderboardName.innerHTML = data[i].name;
         const leaderboardNameDiv = leaderboardName.outerHTML;
 
-        const leaderboardScore = document.querySelector('[nny-quiz="leaderboard-score"]');
+        const leaderboardScore = document.querySelector('[nqy-quiz="leaderboard-score"]');
         leaderboardScore.innerHTML = data[i].total_points;
         const leaderboardScoreDiv = leaderboardScore.outerHTML;
 
@@ -686,7 +696,7 @@ function showLeaderboard () {
     })
 };
 
-const showLeaderboardBtns = document.querySelectorAll('[nny-quiz="show-leaderboard"]')
+const showLeaderboardBtns = document.querySelectorAll('[nqy-quiz="show-leaderboard"]')
 if (showLeaderboardBtns) {
   for (let i = 0; i < showLeaderboardBtns.length; i++) {
     showLeaderboardBtns[i].addEventListener('click', showLeaderboard)
