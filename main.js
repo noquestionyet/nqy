@@ -456,6 +456,7 @@ function showResult () {
         inputShowed = true;
       }
     } else {
+      console.log('we are in matching screens')
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
         const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
