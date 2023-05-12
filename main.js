@@ -362,7 +362,7 @@ function updateProgress (stepNumber, quizForm) {
         questionNumber++;
       }
     })
-    console.log(questionNumber#u)
+    console.log(questionNumber)
     const totalQuestions = questionNumber;
     const progress = (currentQuestionNumber / totalQuestions) * 100;
     const progressBar = document.querySelector('[nqy-progress="progress-bar"]');
