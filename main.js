@@ -53,7 +53,9 @@ quizForms.forEach((quizForm) => {
   let questionsNumber = 0;
   for (let i = 0; i < questionSteps.length; i++) {
     const questionAttribute = questionSteps[i].getAttribute('nqy-step');
-    questionAttribute !== 'final' ? questionsNumber++ : null;
+    if (questionAttribute !== 'final' || questionAttribute !== 'data') {
+      questionsNumber++;
+    }
   }
   // show the total amount of questions
   const totalQuestionsNumbers = quizForm.querySelectorAll('[nqy-question="total"]');
@@ -237,9 +239,6 @@ function nextQuestion (stepNumber, quizForm) {
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
       showResult();
-    } else if (stepNumber === 'data') {
-      console.log('this is data')
-      showDbData();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
       nextQuestion.classList.add('current-question');
@@ -428,14 +427,6 @@ function deleteResults () {
   }
 }
 
-// show input field to send to db
-function showDbData () {
-  const dataDbScreens = document.querySelectorAll('[nqy-step="data"]');
-  dataDbScreens.forEach((dataDbScreen) => {
-    dataDbScreen.style.display = 'block';
-  });
-}
-
 // if we have points show the custom result message
 function showResult () {
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
@@ -445,24 +436,38 @@ function showResult () {
   if (resultScreens.length === 1) {
     document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
   } else {
-    const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
-      const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
-      const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
-      return minRange <= pointFinalSum && pointFinalSum <= maxRange;
-    });
+    let inputShowed;
+    resultScreens.forEach((resultScreen) => {
+      const dataScreens = resultScreen.querySelectorAll('[nqy-step="submit"]');
+      if (dataScreens.length !== 0) {
+        dataScreens.forEach((dataDbScreen) => {
+          dataDbScreen.style.display = 'block';
+          inputShowed = true;
+        });
+      } else {
+        inputShowed = true;
+      }
+    })
+    if (inputShowed === true) {
+      const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
+        const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
+        const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
+        return minRange <= pointFinalSum && pointFinalSum <= maxRange;
+      });
 
-    if (matchingResultScreen) {
-      matchingResultScreen.style.display = 'block';
+      if (matchingResultScreen) {
+        matchingResultScreen.style.display = 'block';
+      }
     }
-  }
-  if (pointNumber.length !== 0) {
-    for (let i = 0; i < pointNumber.length; i++) {
-      pointNumber[i].innerHTML = pointFinalSum;
+    if (pointNumber.length !== 0) {
+      for (let i = 0; i < pointNumber.length; i++) {
+        pointNumber[i].innerHTML = pointFinalSum;
+      }
     }
-  }
-  if (answerNumber.length !== 0) {
-    for (let i = 0; i < answerNumber.length; i++) {
-      answerNumber[i].innerHTML = pointFinalSum;
+    if (answerNumber.length !== 0) {
+      for (let i = 0; i < answerNumber.length; i++) {
+        answerNumber[i].innerHTML = pointFinalSum;
+      }
     }
   }
 }
