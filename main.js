@@ -70,11 +70,13 @@ quizForms.forEach((quizForm) => {
     if (i === 0) {
       questionSteps[i].style.display = 'block';
       questionSteps[i].classList.add('current-question');
-      const questionAttribute = questionSteps[i].getAttribute('nqy-step');
-      updateProgress(questionAttribute, quizForm)
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
-      } else { checkRequiredFields(questionSteps[i]) }
+      } else {
+        checkRequiredFields(questionSteps[i]);
+        const questionAttribute = questionSteps[i].getAttribute('nqy-step');
+        updateProgress(questionAttribute, quizForm);
+      }
     }
   }
 })
