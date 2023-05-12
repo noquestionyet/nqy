@@ -428,7 +428,7 @@ function deleteResults () {
 }
 
 // if we have points show the custom result message
-let inputShowed;
+let inputShowed = false;
 function showResult () {
   console.log(inputShowed)
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
@@ -438,24 +438,24 @@ function showResult () {
   if (resultScreens.length === 1) {
     document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
   } else {
-    const finalDivsWithSubmit = [];
-    resultScreens.forEach((resultScreen) => {
-      const dataScreens = resultScreen.querySelectorAll('[nqy-quiz="submit"]');
-      if (dataScreens.length !== 0) {
-        finalDivsWithSubmit.push(resultScreen);
-      }
-    })
-    console.log(finalDivsWithSubmit)
-    if (finalDivsWithSubmit.length !== 0) {
-      finalDivsWithSubmit.forEach((finalDivWithSubmit) => {
-        finalDivWithSubmit.style.display = 'block';
+    if (inputShowed === false) {
+      const finalDivsWithSubmit = [];
+      resultScreens.forEach((resultScreen) => {
+        const dataScreens = resultScreen.querySelectorAll('[nqy-quiz="submit"]');
+        if (dataScreens.length !== 0) {
+          finalDivsWithSubmit.push(resultScreen);
+        }
+      })
+      console.log(finalDivsWithSubmit)
+      if (finalDivsWithSubmit.length !== 0) {
+        finalDivsWithSubmit.forEach((finalDivWithSubmit) => {
+          finalDivWithSubmit.style.display = 'block';
+          inputShowed = true;
+        });
+      } else {
         inputShowed = true;
-      });
+      }
     } else {
-      inputShowed = true;
-    }
-
-    if (inputShowed === true) {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
         const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
