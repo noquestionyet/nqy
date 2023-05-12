@@ -226,6 +226,7 @@ if (previousButtons.length !== 0) {
 
 // show next question
 function nextQuestion (stepNumber, quizForm) {
+  console.log(stepNumber)
   const currentQuestion = quizForm.querySelector('.current-question');
   if (filledState) {
     savePoints(currentQuestion);
@@ -237,6 +238,7 @@ function nextQuestion (stepNumber, quizForm) {
     if (stepNumber === 'final') {
       showResult();
     } else if (stepNumber === 'data') {
+      console.log('this is data')
       showDbData();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
