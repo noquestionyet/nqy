@@ -458,6 +458,7 @@ function showResult () {
     } else {
       finalDivsWithSubmit.forEach((finalDivWithSubmit) => {
         finalDivWithSubmit.style.display = 'none';
+        console.log(finalDivWithSubmit)
       });
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
