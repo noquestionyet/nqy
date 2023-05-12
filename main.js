@@ -428,6 +428,7 @@ function deleteResults () {
 }
 
 // if we have points show the custom result message
+let inputShowed;
 function showResult () {
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
@@ -436,7 +437,6 @@ function showResult () {
   if (resultScreens.length === 1) {
     document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
   } else {
-    let inputShowed;
     const finalDivsWithSubmit = [];
     resultScreens.forEach((resultScreen) => {
       const dataScreens = resultScreen.querySelectorAll('[nqy-quiz="submit"]');
