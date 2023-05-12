@@ -5,7 +5,6 @@ let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
 const paidPlanId = 'prc_deploy-plan-n4ae053s';
 let userStatus = false;
-let bar;
 
 // checking the subscription status in the db
 function getMemberStatus (currentUserId) {
@@ -762,6 +761,7 @@ function showError (value) {
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
+  let bar;
   addProgressCircleScript();
   getMemberStatus(currentUserId);
   createToastMessage();
