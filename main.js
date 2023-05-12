@@ -378,6 +378,7 @@ function updateProgress (stepNumber, quizForm) {
       }
     }
     if (progressBarCircle) {
+      console.log(bar)
       bar.animate(progress / 100);
       const currentQuestionProgress = progressBarCircle.querySelector('[nqy-progress="current"]');
       const totalQuestionsProgress = progressBarCircle.querySelector('[nqy-progress="total"]');
