@@ -71,8 +71,6 @@ quizForms.forEach((quizForm) => {
     if (i === 0) {
       questionSteps[i].style.display = 'block';
       questionSteps[i].classList.add('current-question');
-      const questionAttribute = questionSteps[i].getAttribute('nqy-step');
-      updateProgress(questionAttribute, quizForm, bar);
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
       } else {
@@ -251,7 +249,7 @@ function nextQuestion (stepNumber, quizForm) {
       checkRequiredFields(nextQuestion);
       currentQuestionNumber(nextQuestion, stepNumber);
     }
-    updateProgress(stepNumber, quizForm, bar);
+    updateProgress(stepNumber, quizForm);
   } else { validationError(currentQuestion) }
 }
 
@@ -280,7 +278,7 @@ function previousQuestion (quizForm) {
   currentQuestion.classList.remove('current-question');
   currentQuestion.style.display = 'none';
   currentQuestionNumber(previousQuestion, previousQuestionNumber);
-  updateProgress(previousQuestionNumber, quizForm, bar)
+  updateProgress(previousQuestionNumber, quizForm)
   const newStepFlowArray = existingStepFlowArray.splice(-1)
   const newStepFlow = newStepFlowArray.toString();
   sessionStorage.setItem('stepFlow', `${newStepFlow}`);
@@ -326,7 +324,9 @@ function addProgressCircleScript () {
 function createProgress (quizForm) {
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
   let questionNumber = 0;
+  let questionAttribute;
   questionSteps.forEach((questionStep) => {
+    questionAttribute = questionStep[0].getAttribute('nqy-step');
     if (questionStep.getAttribute('nqy-step') !== 'final') {
       questionNumber++;
     }
@@ -345,10 +345,11 @@ function createProgress (quizForm) {
   if (progressCircleIcon) {
     addProgressCircleScript();
   }
+  updateProgress(questionAttribute, quizForm);
 }
 
 // update progress
-function updateProgress (stepNumber, quizForm, bar) {
+function updateProgress (stepNumber, quizForm) {
   console.log('we are in progress update')
   const progressWrapper = document.querySelector('[nqy-progress="progress"]');
   if (stepNumber === 'final') {
@@ -362,7 +363,6 @@ function updateProgress (stepNumber, quizForm, bar) {
         questionNumber++;
       }
     })
-    console.log(questionNumber)
     const totalQuestions = questionNumber;
     const progress = (currentQuestionNumber / totalQuestions) * 100;
     const progressBar = document.querySelector('[nqy-progress="progress-bar"]');
