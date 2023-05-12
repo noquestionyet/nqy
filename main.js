@@ -292,7 +292,7 @@ function currentQuestionNumber (currentQuestion, stepNumber) {
 
 // add script for the circle progress bar
 let bar;
-function addProgressCircleScript () {
+function addProgressCircleScript (callback) {
   console.log('we are in circe')
   const circleProgressBarScript = document.createElement('script');
   circleProgressBarScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.0/progressbar.min.js';
@@ -318,6 +318,9 @@ function addProgressCircleScript () {
       }
     })
     bar.animate(10 / 100);
+    if (typeof callback === 'function') {
+      callback();
+    }
   })
 }
 
