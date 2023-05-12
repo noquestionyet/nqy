@@ -436,13 +436,7 @@ function showResult () {
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
-  if (inputScreens.length !== 0) {
-    console.log(inputScreens)
-    inputScreens.forEach((inputScreen) => {
-      inputScreen.style.display = 'block';
-      inputShowed = true;
-    });
-  } else if (inputScreens.length === 0 || inputShowed === true) {
+  if (inputScreens.length === 0 || inputShowed === true) {
     console.log('we are checking result')
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'none';
@@ -470,6 +464,12 @@ function showResult () {
         }
       };
     }
+  } else {
+    console.log(inputScreens)
+    inputScreens.forEach((inputScreen) => {
+      inputScreen.style.display = 'block';
+      inputShowed = true;
+    });
   }
 }
 
