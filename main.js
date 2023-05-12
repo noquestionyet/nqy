@@ -44,7 +44,6 @@ function activateScript (activeStatus) {
 }
 
 // hiding all questions apart from the first
-let bar;
 const quizForms = document.querySelectorAll('[nqy-form]');
 const formShowers = document.querySelectorAll('[nqy-formshow]');
 quizForms.forEach((quizForm) => {
@@ -292,7 +291,9 @@ function currentQuestionNumber (currentQuestion, stepNumber) {
 }
 
 // add script for the circle progress bar
+let bar;
 function addProgressCircleScript () {
+  console.log('we are in circe')
   const circleProgressBarScript = document.createElement('script');
   circleProgressBarScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.0/progressbar.min.js';
   document.head.appendChild(circleProgressBarScript);
@@ -322,6 +323,7 @@ function addProgressCircleScript () {
 
 // create progress bar
 function createProgress (quizForm) {
+  console.log('creating progress')
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
   let questionNumber = 0;
   let questionAttribute;
