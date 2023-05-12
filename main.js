@@ -439,7 +439,7 @@ function showResult () {
     let inputShowed;
     const finalDivsWithSubmit = [];
     resultScreens.forEach((resultScreen) => {
-      const dataScreens = resultScreen.querySelectorAll('[nqy-step="submit"]');
+      const dataScreens = resultScreen.querySelectorAll('[nqy-quiz="submit"]');
       if (dataScreens.length !== 0) {
         finalDivsWithSubmit.push(resultScreen);
       }
