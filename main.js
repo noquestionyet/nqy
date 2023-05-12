@@ -343,11 +343,15 @@ function createProgress (quizForm) {
       progressBarPart.appendChild(progressBarPartElementCopy);
     }
     progressBarPartElement.classList.add('active');
+    updateProgress(questionAttribute, quizForm);
   }
   if (progressCircleIcon) {
-    addProgressCircleScript();
+    addProgressCircleScript(() => {
+      updateProgress(questionAttribute, quizForm);
+    });
+  } else {
+    updateProgress(questionAttribute, quizForm);
   }
-  updateProgress(questionAttribute, quizForm);
 }
 
 // update progress
