@@ -230,7 +230,6 @@ if (previousButtons.length !== 0) {
 
 // show next question
 function nextQuestion (stepNumber, quizForm) {
-  console.log(stepNumber)
   const currentQuestion = quizForm.querySelector('.current-question');
   if (filledState) {
     savePoints(currentQuestion);
@@ -293,7 +292,6 @@ function currentQuestionNumber (currentQuestion, stepNumber) {
 // add script for the circle progress bar
 let bar;
 function addProgressCircleScript (callback) {
-  console.log('we are in circe')
   const circleProgressBarScript = document.createElement('script');
   circleProgressBarScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.0/progressbar.min.js';
   document.head.appendChild(circleProgressBarScript);
@@ -326,7 +324,6 @@ function addProgressCircleScript (callback) {
 
 // create progress bar
 function createProgress (quizForm) {
-  console.log('creating progress')
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
   let questionNumber = 0;
   let questionAttribute;
