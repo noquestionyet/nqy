@@ -325,12 +325,12 @@ function createProgress (quizForm) {
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
   let questionNumber = 0;
   let questionAttribute;
-  questionSteps.forEach((questionStep) => {
-    questionAttribute = questionStep[0].getAttribute('nqy-step');
-    if (questionStep.getAttribute('nqy-step') !== 'final') {
+  for (let i = 0; i < questionSteps.length; i++) {
+    questionAttribute = questionSteps[0].getAttribute('nqy-step');
+    if (questionSteps[i].getAttribute('nqy-step') !== 'final') {
       questionNumber++;
     }
-  })
+  }
   const totalQuestions = questionNumber;
   const progressBarPart = document.querySelector('[nqy-progress="progress-part"]');
   const progressCircleIcon = document.querySelector('[nqy-progress="progress-circle-element"]')
