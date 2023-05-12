@@ -437,18 +437,23 @@ function showResult () {
     document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
   } else {
     let inputShowed;
+    const finalDivsWithSubmit = [];
     resultScreens.forEach((resultScreen) => {
       const dataScreens = resultScreen.querySelectorAll('[nqy-step="submit"]');
       if (dataScreens.length !== 0) {
-        console.log(dataScreens)
-        dataScreens.forEach((dataDbScreen) => {
-          dataDbScreen.style.display = 'block';
-          inputShowed = true;
-        });
-      } else {
-        inputShowed = true;
+        finalDivsWithSubmit.push(resultScreen);
       }
     })
+    console.log(finalDivsWithSubmit)
+    if (finalDivsWithSubmit.length !== 0) {
+      finalDivsWithSubmit.forEach((finalDivWithSubmit) => {
+        finalDivWithSubmit.style.display = 'block';
+        inputShowed = true;
+      });
+    } else {
+      inputShowed = true;
+    }
+
     if (inputShowed === true) {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
