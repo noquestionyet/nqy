@@ -53,7 +53,9 @@ quizForms.forEach((quizForm) => {
   let questionsNumber = 0;
   for (let i = 0; i < questionSteps.length; i++) {
     const questionAttribute = questionSteps[i].getAttribute('nqy-step');
-    questionAttribute !== 'final' ? questionsNumber++ : null;
+    if (questionAttribute !== 'final') {
+      questionsNumber++;
+    }
   }
   // show the total amount of questions
   const totalQuestionsNumbers = quizForm.querySelectorAll('[nqy-question="total"]');
@@ -70,7 +72,9 @@ quizForms.forEach((quizForm) => {
       questionSteps[i].classList.add('current-question');
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
-      } else { checkRequiredFields(questionSteps[i]) }
+      } else {
+        checkRequiredFields(questionSteps[i]);
+      }
     }
   }
 })
@@ -236,8 +240,6 @@ function nextQuestion (stepNumber, quizForm) {
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
       showResult();
-    } else if (stepNumber === 'data') {
-      showDbData();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
       nextQuestion.classList.add('current-question');
@@ -245,7 +247,7 @@ function nextQuestion (stepNumber, quizForm) {
       checkRequiredFields(nextQuestion);
       currentQuestionNumber(nextQuestion, stepNumber);
     }
-    updateProgress(stepNumber, quizForm)
+    updateProgress(stepNumber, quizForm);
   } else { validationError(currentQuestion) }
 }
 
@@ -289,7 +291,7 @@ function currentQuestionNumber (currentQuestion, stepNumber) {
 
 // add script for the circle progress bar
 let bar;
-function addProgressCircleScript () {
+function addProgressCircleScript (callback) {
   const circleProgressBarScript = document.createElement('script');
   circleProgressBarScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.0/progressbar.min.js';
   document.head.appendChild(circleProgressBarScript);
@@ -314,13 +316,24 @@ function addProgressCircleScript () {
       }
     })
     bar.animate(10 / 100);
+    if (typeof callback === 'function') {
+      callback();
+    }
   })
 }
 
 // create progress bar
 function createProgress (quizForm) {
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
-  const totalQuestions = questionSteps.length - 1; // because there's always a final step
+  let questionNumber = 0;
+  let questionAttribute;
+  for (let i = 0; i < questionSteps.length; i++) {
+    questionAttribute = questionSteps[0].getAttribute('nqy-step');
+    if (questionSteps[i].getAttribute('nqy-step') !== 'final') {
+      questionNumber++;
+    }
+  }
+  const totalQuestions = questionNumber;
   const progressBarPart = document.querySelector('[nqy-progress="progress-part"]');
   const progressCircleIcon = document.querySelector('[nqy-progress="progress-circle-element"]')
   if (progressBarPart) {
@@ -330,21 +343,33 @@ function createProgress (quizForm) {
       progressBarPart.appendChild(progressBarPartElementCopy);
     }
     progressBarPartElement.classList.add('active');
+    updateProgress(questionAttribute, quizForm);
   }
   if (progressCircleIcon) {
-    addProgressCircleScript();
+    addProgressCircleScript(() => {
+      updateProgress(questionAttribute, quizForm);
+    });
+  } else {
+    updateProgress(questionAttribute, quizForm);
   }
 }
 
 // update progress
 function updateProgress (stepNumber, quizForm) {
+  console.log('we are in progress update')
   const progressWrapper = document.querySelector('[nqy-progress="progress"]');
   if (stepNumber === 'final') {
     progressWrapper ? progressWrapper.style.display = 'none' : null;
   } else {
     const currentQuestionNumber = parseInt(stepNumber.match(/\d+/)[0]);
     const questionSteps = quizForm.querySelectorAll('[nqy-step]');
-    const totalQuestions = questionSteps.length - 1; // because there's always a final step
+    let questionNumber = 0;
+    questionSteps.forEach((questionStep) => {
+      if (questionStep.getAttribute('nqy-step') !== 'final') {
+        questionNumber++;
+      }
+    })
+    const totalQuestions = questionNumber;
     const progress = (currentQuestionNumber / totalQuestions) * 100;
     const progressBar = document.querySelector('[nqy-progress="progress-bar"]');
     const progressBarCircle = document.querySelector('[nqy-progress="progress-circle"]');
@@ -359,6 +384,7 @@ function updateProgress (stepNumber, quizForm) {
       }
     }
     if (progressBarCircle) {
+      console.log(bar)
       bar.animate(progress / 100);
       const currentQuestionProgress = progressBarCircle.querySelector('[nqy-progress="current"]');
       const totalQuestionsProgress = progressBarCircle.querySelector('[nqy-progress="total"]');
@@ -426,42 +452,49 @@ function deleteResults () {
   }
 }
 
-// show input field to send to db
-function showDbData () {
-  const dataDbScreens = document.querySelectorAll('[nqy-step="data"]');
-  dataDbScreens.forEach((dataDbScreen) => {
-    dataDbScreen.style.display = 'block';
-  });
-}
-
 // if we have points show the custom result message
+let inputShowed = false;
 function showResult () {
+  console.log(inputShowed)
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
+  const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
-  if (resultScreens.length === 1) {
-    document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
-  } else {
-    const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
-      const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
-      const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
-      return minRange <= pointFinalSum && pointFinalSum <= maxRange;
+  if (inputScreens.length === 0 || inputShowed === true) {
+    console.log('we are checking result')
+    inputScreens.forEach((inputScreen) => {
+      inputScreen.style.display = 'none';
     });
+    if (resultScreens.length === 1) {
+      document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
+    } else {
+      const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
+        const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
+        const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
+        return minRange <= pointFinalSum && pointFinalSum <= maxRange;
+      });
 
-    if (matchingResultScreen) {
-      matchingResultScreen.style.display = 'block';
+      if (matchingResultScreen) {
+        matchingResultScreen.style.display = 'block';
+      };
+      if (pointNumber.length !== 0) {
+        for (let i = 0; i < pointNumber.length; i++) {
+          pointNumber[i].innerHTML = pointFinalSum;
+        }
+      };
+      if (answerNumber.length !== 0) {
+        for (let i = 0; i < answerNumber.length; i++) {
+          answerNumber[i].innerHTML = pointFinalSum;
+        }
+      };
     }
-  }
-  if (pointNumber.length !== 0) {
-    for (let i = 0; i < pointNumber.length; i++) {
-      pointNumber[i].innerHTML = pointFinalSum;
-    }
-  }
-  if (answerNumber.length !== 0) {
-    for (let i = 0; i < answerNumber.length; i++) {
-      answerNumber[i].innerHTML = pointFinalSum;
-    }
+  } else {
+    console.log(inputScreens)
+    inputScreens.forEach((inputScreen) => {
+      inputScreen.style.display = 'block';
+      inputShowed = true;
+    });
   }
 }
 
