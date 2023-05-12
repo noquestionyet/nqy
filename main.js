@@ -44,6 +44,7 @@ function activateScript (activeStatus) {
 }
 
 // hiding all questions apart from the first
+let bar;
 const quizForms = document.querySelectorAll('[nqy-form]');
 const formShowers = document.querySelectorAll('[nqy-formshow]');
 quizForms.forEach((quizForm) => {
@@ -71,7 +72,7 @@ quizForms.forEach((quizForm) => {
       questionSteps[i].style.display = 'block';
       questionSteps[i].classList.add('current-question');
       const questionAttribute = questionSteps[i].getAttribute('nqy-step');
-      updateProgress(questionAttribute, quizForm);
+      updateProgress(questionAttribute, quizForm, bar);
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
       } else {
@@ -250,7 +251,7 @@ function nextQuestion (stepNumber, quizForm) {
       checkRequiredFields(nextQuestion);
       currentQuestionNumber(nextQuestion, stepNumber);
     }
-    updateProgress(stepNumber, quizForm);
+    updateProgress(stepNumber, quizForm, bar);
   } else { validationError(currentQuestion) }
 }
 
@@ -279,7 +280,7 @@ function previousQuestion (quizForm) {
   currentQuestion.classList.remove('current-question');
   currentQuestion.style.display = 'none';
   currentQuestionNumber(previousQuestion, previousQuestionNumber);
-  updateProgress(previousQuestionNumber, quizForm)
+  updateProgress(previousQuestionNumber, quizForm, bar)
   const newStepFlowArray = existingStepFlowArray.splice(-1)
   const newStepFlow = newStepFlowArray.toString();
   sessionStorage.setItem('stepFlow', `${newStepFlow}`);
@@ -347,7 +348,7 @@ function createProgress (quizForm) {
 }
 
 // update progress
-function updateProgress (stepNumber, quizForm) {
+function updateProgress (stepNumber, quizForm, bar) {
   console.log('we are in progress update')
   const progressWrapper = document.querySelector('[nqy-progress="progress"]');
   if (stepNumber === 'final') {
@@ -761,7 +762,6 @@ function showError (value) {
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
-  let bar;
   addProgressCircleScript();
   getMemberStatus(currentUserId);
   createToastMessage();
