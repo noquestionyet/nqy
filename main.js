@@ -5,6 +5,7 @@ let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
 const paidPlanId = 'prc_deploy-plan-n4ae053s';
 let userStatus = false;
+let bar;
 
 // checking the subscription status in the db
 function getMemberStatus (currentUserId) {
@@ -293,7 +294,6 @@ function currentQuestionNumber (currentQuestion, stepNumber) {
 }
 
 // add script for the circle progress bar
-let bar;
 function addProgressCircleScript () {
   const circleProgressBarScript = document.createElement('script');
   circleProgressBarScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.0/progressbar.min.js';
