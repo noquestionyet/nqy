@@ -440,6 +440,7 @@ function showResult () {
     resultScreens.forEach((resultScreen) => {
       const dataScreens = resultScreen.querySelectorAll('[nqy-step="submit"]');
       if (dataScreens.length !== 0) {
+        console.log(dataScreens)
         dataScreens.forEach((dataDbScreen) => {
           dataDbScreen.style.display = 'block';
           inputShowed = true;
