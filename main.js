@@ -429,37 +429,25 @@ function deleteResults () {
 
 // if we have points show the custom result message
 let inputShowed = false;
-const finalDivsWithSubmit = [];
 function showResult () {
   console.log(inputShowed)
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
+  const inputScreens = document.querySelectorAll('[nqy-step="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
-  if (resultScreens.length === 1) {
-    document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
-  } else {
-    if (inputShowed === false) {
-      resultScreens.forEach((resultScreen) => {
-        const dataScreens = resultScreen.querySelectorAll('[nqy-quiz="submit"]');
-        if (dataScreens.length !== 0) {
-          finalDivsWithSubmit.push(resultScreen);
-        }
-      })
-      console.log(finalDivsWithSubmit)
-      if (finalDivsWithSubmit.length !== 0) {
-        finalDivsWithSubmit.forEach((finalDivWithSubmit) => {
-          finalDivWithSubmit.style.display = 'block';
-          inputShowed = true;
-        });
-      } else {
-        inputShowed = true;
-      }
+  if (inputScreens.length !== 0) {
+    console.log(inputScreens)
+    inputScreens.forEach((inputScreen) => {
+      inputScreen.style.display = 'block';
+      inputShowed = true;
+    });
+  } else if (inputScreens.length === 0 || inputShowed === true) {
+    if (resultScreens.length === 1) {
+      document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
     } else {
-      console.log(finalDivsWithSubmit)
-      finalDivsWithSubmit.forEach((finalDivWithSubmit) => {
-        finalDivWithSubmit.style.display = 'none';
-        console.log(finalDivWithSubmit)
+      inputScreens.forEach((inputScreen) => {
+        inputScreen.style.display = 'none';
       });
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
@@ -469,17 +457,17 @@ function showResult () {
 
       if (matchingResultScreen) {
         matchingResultScreen.style.display = 'block';
-      }
-    }
-    if (pointNumber.length !== 0) {
-      for (let i = 0; i < pointNumber.length; i++) {
-        pointNumber[i].innerHTML = pointFinalSum;
-      }
-    }
-    if (answerNumber.length !== 0) {
-      for (let i = 0; i < answerNumber.length; i++) {
-        answerNumber[i].innerHTML = pointFinalSum;
-      }
+      };
+      if (pointNumber.length !== 0) {
+        for (let i = 0; i < pointNumber.length; i++) {
+          pointNumber[i].innerHTML = pointFinalSum;
+        }
+      };
+      if (answerNumber.length !== 0) {
+        for (let i = 0; i < answerNumber.length; i++) {
+          answerNumber[i].innerHTML = pointFinalSum;
+        }
+      };
     }
   }
 }
