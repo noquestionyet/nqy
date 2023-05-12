@@ -762,6 +762,7 @@ function showError (value) {
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
+  addProgressCircleScript();
   getMemberStatus(currentUserId);
   createToastMessage();
   sessionStorage.clear();
