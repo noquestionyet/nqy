@@ -443,12 +443,13 @@ function showResult () {
       inputShowed = true;
     });
   } else if (inputScreens.length === 0 || inputShowed === true) {
+    console.log('we are checking result')
+    inputScreens.forEach((inputScreen) => {
+      inputScreen.style.display = 'none';
+    });
     if (resultScreens.length === 1) {
       document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
     } else {
-      inputScreens.forEach((inputScreen) => {
-        inputScreen.style.display = 'none';
-      });
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
         const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
