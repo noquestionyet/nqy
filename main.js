@@ -429,12 +429,12 @@ function deleteResults () {
 
 // if we have points show the custom result message
 let inputShowed = false;
+const finalDivsWithSubmit = [];
 function showResult () {
   console.log(inputShowed)
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
-  const finalDivsWithSubmit = [];
   const pointFinalSum = pointSum();
   if (resultScreens.length === 1) {
     document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
@@ -456,6 +456,7 @@ function showResult () {
         inputShowed = true;
       }
     } else {
+      console.log(finalDivsWithSubmit)
       finalDivsWithSubmit.forEach((finalDivWithSubmit) => {
         finalDivWithSubmit.style.display = 'none';
         console.log(finalDivWithSubmit)
