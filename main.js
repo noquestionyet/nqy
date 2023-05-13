@@ -44,11 +44,13 @@ function activateScript (activeStatus) {
   setFormShowers();
 }
 
-// hiding quiz name and point number
+// hiding quiz name and point number, leaderboard
 const quizName = document.querySelector('[nqy-quiz="quiz-name"]');
 quizName ? quizName.style.display = 'none' : null;
 const quizPoints = document.querySelector('[nqy-quiz="points"]');
 quizPoints ? quizPoints.style.display = 'none' : null;
+const leaderboardScreen = document.querySelector('[nqy-quiz="leaderboard-result"]');
+leaderboardScreen ? leaderboardScreen.style.display = 'none' : null;
 
 // hiding all questions apart from the first
 const quizForms = document.querySelectorAll('[nqy-form]');
@@ -657,7 +659,7 @@ function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, cu
 
 // show the leaderboard
 function showLeaderboard () {
-  const leaderboardScreen = document.querySelector('[nny-quiz="leaderboard-result"]');
+  const leaderboardScreen = document.querySelector('[nqy-quiz="leaderboard-result"]');
   const result = document.querySelector('[nqy-quiz="result"]');
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   const quizName = document.querySelector('[nqy-quiz="quiz-name"]').innerHTML;
