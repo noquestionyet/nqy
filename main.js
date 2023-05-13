@@ -621,7 +621,7 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
 // sending the user results to the db
 function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, currentUserId) {
   const finalData = {
-    total_points: totalPoints,
+    total_points: Number(totalPoints),
     name: userName,
     email: userEmail,
     answers: userAnswers,
