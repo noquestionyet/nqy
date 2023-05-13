@@ -363,7 +363,6 @@ function createProgress (quizForm) {
 
 // update progress
 function updateProgress (stepNumber, quizForm) {
-  console.log('we are in progress update')
   const progressWrapper = document.querySelector('[nqy-progress="progress"]');
   if (stepNumber === 'final') {
     progressWrapper ? progressWrapper.style.display = 'none' : null;
@@ -391,7 +390,6 @@ function updateProgress (stepNumber, quizForm) {
       }
     }
     if (progressBarCircle) {
-      console.log(bar)
       bar.animate(progress / 100);
       const currentQuestionProgress = progressBarCircle.querySelector('[nqy-progress="current"]');
       const totalQuestionsProgress = progressBarCircle.querySelector('[nqy-progress="total"]');
@@ -466,7 +464,7 @@ function showResult () {
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
-  const pointFinalSum = pointSum().pointSum;
+  const pointFinalSum = pointSum();
   if (inputScreens.length === 0 || inputShowed === true) {
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'none';
@@ -507,7 +505,6 @@ function pointSum () {
   const pointString = sessionStorage.getItem('points');
   const answerString = sessionStorage.getItem('state');
   let pointSum = 0;
-  let answerSum = 0;
   if (pointString) {
     const pointArray = pointString.split(',');
     for (let i = 0; i < pointArray.length; i++) {
@@ -516,17 +513,17 @@ function pointSum () {
   }
   if (answerString) {
     const quizPointsItem = document.querySelector('[nqy-quiz="points"]');
-    const quizPointsNumber = Number(quizPointsItem.innerHTML);
+    let quizPointsNumber = 0;
+    quizPointsItem ? quizPointsNumber = Number(quizPointsItem.innerHTML) : null;
     console.log(quizPointsNumber)
     const answerArray = answerString.split(',');
     for (let i = 0; i < answerArray.length; i++) {
       if (answerArray[i] === 'true') {
-        answerSum++;
-        pointSum += quizPointsNumber;
+        quizPointsNumber !== 0 ? pointSum += quizPointsNumber : pointSum++;
       }
     }
   }
-  return { pointSum, answerSum };
+  return pointSum;
 }
 
 // if we have personalised content, like name, to reuse in the form text
