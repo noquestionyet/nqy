@@ -241,6 +241,7 @@ function nextQuestion (stepNumber, quizForm) {
   if (filledState) {
     savePoints(currentQuestion);
     saveTotalAnswers(currentQuestion);
+    saveAnswerText(currentQuestion);
     const existingStepFlow = sessionStorage.getItem('stepFlow');
     existingStepFlow ? sessionStorage.setItem('stepFlow', `${existingStepFlow},${stepNumber}`) : sessionStorage.setItem('stepFlow', `step-1,${stepNumber}`);
     currentQuestion.classList.remove('current-question');
@@ -273,9 +274,11 @@ function findNextQuestion (currentQuestionNextButton) {
 
 // show previous question
 function previousQuestion (quizForm) {
+  // find previous step
   const existingStepFlow = sessionStorage.getItem('stepFlow');
   const existingStepFlowArray = existingStepFlow.split(',');
   const previousQuestionNumber = existingStepFlowArray.at(-2);
+  // changes in the UI
   const previousQuestion = quizForm.querySelector(`[nqy-step='${previousQuestionNumber}']`);
   const currentQuestion = quizForm.querySelector('.current-question');
   previousQuestion.classList.add('current-question');
@@ -283,10 +286,17 @@ function previousQuestion (quizForm) {
   currentQuestion.classList.remove('current-question');
   currentQuestion.style.display = 'none';
   currentQuestionNumber(previousQuestion, previousQuestionNumber);
-  updateProgress(previousQuestionNumber, quizForm)
-  const newStepFlowArray = existingStepFlowArray.splice(-1)
+  updateProgress(previousQuestionNumber, quizForm);
+  // delete previous step from session storage
+  const newStepFlowArray = existingStepFlowArray.splice(-1);
   const newStepFlow = newStepFlowArray.toString();
   sessionStorage.setItem('stepFlow', `${newStepFlow}`);
+  // delete last text answer from session storage
+  const existingAnswers = sessionStorage.getItem('all-answers');
+  const existingAnswersArray = existingAnswers.split(',');
+  const newAnswersArray = existingAnswersArray.splice(-1);
+  const newAnswers = newAnswersArray.toString();
+  sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
 }
 
@@ -418,6 +428,21 @@ function savePoints (currentQuestion) {
   }
 }
 
+// save all answers text to session storage
+function saveAnswerText (currentQuestion) {
+  const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
+  let labelText = null;
+  for (let i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      const label = radioButtons[i].nextElementSibling;
+      labelText = label.textContent;
+    }
+  }
+  console.log(labelText)
+  const existingAllAnswers = sessionStorage.getItem('all-answers');
+  existingAllAnswers ? sessionStorage.setItem('all-answers', `${existingAllAnswers},${labelText}`) : sessionStorage.setItem('all-answers', `${labelText}`)
+}
+
 // if we have total right answers, add them to the sessionStorage
 function saveTotalAnswers (currentQuestion) {
   let currentQuestionStateBoolean = 0;
@@ -492,10 +517,10 @@ function showResult () {
       }
     };
     if (answerNumber.length !== 0) {
-      console.log(answerNumber)
       for (let i = 0; i < answerNumber.length; i++) {
         answerNumber[i].innerHTML = pointFinalSum;
       }
+      !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
     };
   } else {
     inputScreens.forEach((inputScreen) => {
@@ -596,7 +621,7 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
 // sending the user results to the db
 function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, currentUserId) {
   const finalData = {
-    totalPoints,
+    total_points: totalPoints,
     name: userName,
     email: userEmail,
     answers: userAnswers,
