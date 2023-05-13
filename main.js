@@ -505,7 +505,7 @@ function showResult () {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
         const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
-        return minRange <= pointFinalSum && pointFinalSum <= maxRange;
+        return minRange <= Number(sessionStorage.getItem('points')) && Number(sessionStorage.getItem('points')) <= maxRange;
       });
 
       if (matchingResultScreen) {
@@ -513,14 +513,13 @@ function showResult () {
       };
     }
     if (pointNumber.length !== 0) {
-      console.log(pointFinalSum)
       for (let i = 0; i < pointNumber.length; i++) {
-        pointNumber[i].innerHTML = pointFinalSum;
+        pointNumber[i].innerHTML = sessionStorage.getItem('points');
       }
     };
     if (answerNumber.length !== 0) {
       for (let i = 0; i < answerNumber.length; i++) {
-        answerNumber[i].innerHTML = pointFinalSum;
+        answerNumber[i].innerHTML = sessionStorage.getItem('points');
       }
     };
   } else {
