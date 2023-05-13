@@ -493,6 +493,7 @@ function showResult () {
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
+  console.log(pointFinalSum)
   !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
   if (inputScreens.length === 0 || inputShowed === true) {
     inputScreens.forEach((inputScreen) => {
@@ -512,7 +513,6 @@ function showResult () {
       };
     }
     if (pointNumber.length !== 0) {
-      console.log(pointNumber)
       console.log(pointFinalSum)
       for (let i = 0; i < pointNumber.length; i++) {
         pointNumber[i].innerHTML = pointFinalSum;
