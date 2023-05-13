@@ -485,18 +485,18 @@ function showResult () {
       if (matchingResultScreen) {
         matchingResultScreen.style.display = 'block';
       };
-      if (pointNumber.length !== 0) {
-        for (let i = 0; i < pointNumber.length; i++) {
-          pointNumber[i].innerHTML = pointFinalSum;
-        }
-      };
-      if (answerNumber.length !== 0) {
-        console.log(answerNumber)
-        for (let i = 0; i < answerNumber.length; i++) {
-          answerNumber[i].innerHTML = pointFinalSum;
-        }
-      };
     }
+    if (pointNumber.length !== 0) {
+      for (let i = 0; i < pointNumber.length; i++) {
+        pointNumber[i].innerHTML = pointFinalSum;
+      }
+    };
+    if (answerNumber.length !== 0) {
+      console.log(answerNumber)
+      for (let i = 0; i < answerNumber.length; i++) {
+        answerNumber[i].innerHTML = pointFinalSum;
+      }
+    };
   } else {
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'block';
