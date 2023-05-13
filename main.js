@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable semi */
 
 // main variables
@@ -42,6 +43,14 @@ function activateScript (activeStatus) {
   currentURL.includes('webflow.io') ? userStatus = true : userStatus = activeStatus;
   setFormShowers();
 }
+
+// hiding quiz name and point number, leaderboard
+const quizName = document.querySelector('[nqy-quiz="quiz-name"]');
+quizName ? quizName.style.display = 'none' : null;
+const quizPoints = document.querySelector('[nqy-quiz="points"]');
+quizPoints ? quizPoints.style.display = 'none' : null;
+const leaderboardScreen = document.querySelector('[nqy-quiz="leaderboard-result"]');
+leaderboardScreen ? leaderboardScreen.style.display = 'none' : null;
 
 // hiding all questions apart from the first
 const quizForms = document.querySelectorAll('[nqy-form]');
@@ -234,6 +243,7 @@ function nextQuestion (stepNumber, quizForm) {
   if (filledState) {
     savePoints(currentQuestion);
     saveTotalAnswers(currentQuestion);
+    saveAnswerText(currentQuestion);
     const existingStepFlow = sessionStorage.getItem('stepFlow');
     existingStepFlow ? sessionStorage.setItem('stepFlow', `${existingStepFlow},${stepNumber}`) : sessionStorage.setItem('stepFlow', `step-1,${stepNumber}`);
     currentQuestion.classList.remove('current-question');
@@ -266,9 +276,11 @@ function findNextQuestion (currentQuestionNextButton) {
 
 // show previous question
 function previousQuestion (quizForm) {
+  // find previous step
   const existingStepFlow = sessionStorage.getItem('stepFlow');
   const existingStepFlowArray = existingStepFlow.split(',');
   const previousQuestionNumber = existingStepFlowArray.at(-2);
+  // changes in the UI
   const previousQuestion = quizForm.querySelector(`[nqy-step='${previousQuestionNumber}']`);
   const currentQuestion = quizForm.querySelector('.current-question');
   previousQuestion.classList.add('current-question');
@@ -276,10 +288,17 @@ function previousQuestion (quizForm) {
   currentQuestion.classList.remove('current-question');
   currentQuestion.style.display = 'none';
   currentQuestionNumber(previousQuestion, previousQuestionNumber);
-  updateProgress(previousQuestionNumber, quizForm)
-  const newStepFlowArray = existingStepFlowArray.splice(-1)
+  updateProgress(previousQuestionNumber, quizForm);
+  // delete previous step from session storage
+  const newStepFlowArray = existingStepFlowArray.splice(-1);
   const newStepFlow = newStepFlowArray.toString();
   sessionStorage.setItem('stepFlow', `${newStepFlow}`);
+  // delete last text answer from session storage
+  const existingAnswers = sessionStorage.getItem('all-answers');
+  const existingAnswersArray = existingAnswers.split(',');
+  const newAnswersArray = existingAnswersArray.splice(-1);
+  const newAnswers = newAnswersArray.toString();
+  sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
 }
 
@@ -356,7 +375,6 @@ function createProgress (quizForm) {
 
 // update progress
 function updateProgress (stepNumber, quizForm) {
-  console.log('we are in progress update')
   const progressWrapper = document.querySelector('[nqy-progress="progress"]');
   if (stepNumber === 'final') {
     progressWrapper ? progressWrapper.style.display = 'none' : null;
@@ -384,7 +402,6 @@ function updateProgress (stepNumber, quizForm) {
       }
     }
     if (progressBarCircle) {
-      console.log(bar)
       bar.animate(progress / 100);
       const currentQuestionProgress = progressBarCircle.querySelector('[nqy-progress="current"]');
       const totalQuestionsProgress = progressBarCircle.querySelector('[nqy-progress="total"]');
@@ -411,6 +428,20 @@ function savePoints (currentQuestion) {
     }
     return sessionStorage.setItem('points', `${currentQuestionPointNumber}`);
   }
+}
+
+// save all answers text to session storage
+function saveAnswerText (currentQuestion) {
+  const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
+  let labelText = null;
+  for (let i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      const label = radioButtons[i].nextElementSibling;
+      labelText = label.textContent;
+    }
+  }
+  const existingAllAnswers = sessionStorage.getItem('all-answers');
+  existingAllAnswers ? sessionStorage.setItem('all-answers', `${existingAllAnswers},${labelText}`) : sessionStorage.setItem('all-answers', `${labelText}`)
 }
 
 // if we have total right answers, add them to the sessionStorage
@@ -455,42 +486,41 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
-  console.log(inputShowed)
-  const resultScreens = document.querySelectorAll('[nqy-step="final"]');
+  const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
+  const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
+  !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
   if (inputScreens.length === 0 || inputShowed === true) {
-    console.log('we are checking result')
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'none';
     });
     if (resultScreens.length === 1) {
-      document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
+      resultScreens[0].style.display = 'block';
     } else {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
         const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
-        return minRange <= pointFinalSum && pointFinalSum <= maxRange;
+        return minRange <= Number(sessionStorage.getItem('points')) && Number(sessionStorage.getItem('points')) <= maxRange;
       });
 
       if (matchingResultScreen) {
         matchingResultScreen.style.display = 'block';
       };
-      if (pointNumber.length !== 0) {
-        for (let i = 0; i < pointNumber.length; i++) {
-          pointNumber[i].innerHTML = pointFinalSum;
-        }
-      };
-      if (answerNumber.length !== 0) {
-        for (let i = 0; i < answerNumber.length; i++) {
-          answerNumber[i].innerHTML = pointFinalSum;
-        }
-      };
     }
+    if (pointNumber.length !== 0) {
+      for (let i = 0; i < pointNumber.length; i++) {
+        pointNumber[i].innerHTML = sessionStorage.getItem('points');
+      }
+    };
+    if (answerNumber.length !== 0) {
+      for (let i = 0; i < answerNumber.length; i++) {
+        answerNumber[i].innerHTML = sessionStorage.getItem('points');
+      }
+    };
   } else {
-    console.log(inputScreens)
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'block';
       inputShowed = true;
@@ -510,9 +540,14 @@ function pointSum () {
     }
   }
   if (answerString) {
+    const quizPointsItem = document.querySelector('[nqy-quiz="points"]');
+    let quizPointsNumber = 0;
+    quizPointsItem ? quizPointsNumber = Number(quizPointsItem.innerHTML) : null;
     const answerArray = answerString.split(',');
     for (let i = 0; i < answerArray.length; i++) {
-      answerArray[i] === 'true' ? pointSum++ : null;
+      if (answerArray[i] === 'true') {
+        quizPointsNumber !== 0 ? pointSum += quizPointsNumber : pointSum++;
+      }
     }
   }
   return pointSum;
@@ -584,7 +619,7 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
 // sending the user results to the db
 function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, currentUserId) {
   const finalData = {
-    totalPoints,
+    total_points: Number(totalPoints),
     name: userName,
     email: userEmail,
     answers: userAnswers,
@@ -619,8 +654,8 @@ function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, cu
 
 // show the leaderboard
 function showLeaderboard () {
-  const leaderboardScreen = document.querySelector('[nny-quiz="leaderboard-result"]');
-  const result = document.querySelector('[nqy-quiz="result"]');
+  const leaderboardScreen = document.querySelector('[nqy-quiz="leaderboard-result"]');
+  const finalScreens = document.querySelectorAll('[nqy-step="final"]');
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   const quizName = document.querySelector('[nqy-quiz="quiz-name"]').innerHTML;
   const resultScreen = document.querySelector('[nqy-quiz="leaderboard-wrapper"]');
@@ -722,7 +757,9 @@ function showLeaderboard () {
         }
       }
       leaderboardScreen.style.display = 'flex';
-      result.style.display = 'none';
+      finalScreens.forEach((finalScreen) => {
+        finalScreen.style.display = 'none';
+      });
     })
     .catch((error) => {
       showError(error.message)
