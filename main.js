@@ -470,8 +470,10 @@ function showResult () {
       inputScreen.style.display = 'none';
     });
     if (resultScreens.length === 1) {
+      console.log('one result screen')
       document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
     } else {
+      console.log('more than one result screen')
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
         const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
@@ -523,6 +525,7 @@ function pointSum () {
       }
     }
   }
+  console.log(pointSum)
   return pointSum;
 }
 
