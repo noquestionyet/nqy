@@ -473,7 +473,7 @@ function showResult () {
     });
     if (resultScreens.length === 1) {
       console.log('one result screen')
-      document.querySelectorAll('[nqy-step="final"]').item(0).style.display = 'block';
+      resultScreens.item(0).style.display = 'block';
     } else {
       console.log('more than one result screen')
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
