@@ -466,6 +466,7 @@ function showResult () {
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
+  console.log(answerNumber)
   const pointFinalSum = pointSum();
   console.log(pointFinalSum)
   if (inputScreens.length === 0 || inputShowed === true) {
