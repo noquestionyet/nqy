@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable semi */
 
 // main variables
@@ -42,6 +43,12 @@ function activateScript (activeStatus) {
   currentURL.includes('webflow.io') ? userStatus = true : userStatus = activeStatus;
   setFormShowers();
 }
+
+// hiding quiz name and point number
+const quizName = document.querySelector('[nqy-quiz="quiz-name"]');
+quizName ? quizName.style.display = 'none' : null;
+const quizPoints = document.querySelector('[nqy-quiz="points"]');
+quizPoints ? quizPoints.style.display = 'none' : null;
 
 // hiding all questions apart from the first
 const quizForms = document.querySelectorAll('[nqy-form]');
@@ -455,14 +462,12 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
-  console.log(inputShowed)
   const resultScreens = document.querySelectorAll('[nqy-step="final"]');
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
-  const pointFinalSum = pointSum();
+  const pointFinalSum = pointSum().pointSum;
   if (inputScreens.length === 0 || inputShowed === true) {
-    console.log('we are checking result')
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'none';
     });
@@ -490,7 +495,6 @@ function showResult () {
       };
     }
   } else {
-    console.log(inputScreens)
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'block';
       inputShowed = true;
@@ -503,6 +507,7 @@ function pointSum () {
   const pointString = sessionStorage.getItem('points');
   const answerString = sessionStorage.getItem('state');
   let pointSum = 0;
+  let answerSum = 0;
   if (pointString) {
     const pointArray = pointString.split(',');
     for (let i = 0; i < pointArray.length; i++) {
@@ -510,12 +515,18 @@ function pointSum () {
     }
   }
   if (answerString) {
+    const quizPointsItem = document.querySelector('[nqy-quiz="points"]');
+    const quizPointsNumber = Number(quizPointsItem.innerHTML);
+    console.log(quizPointsNumber)
     const answerArray = answerString.split(',');
     for (let i = 0; i < answerArray.length; i++) {
-      answerArray[i] === 'true' ? pointSum++ : null;
+      if (answerArray[i] === 'true') {
+        answerSum++;
+        pointSum += quizPointsNumber;
+      }
     }
   }
-  return pointSum;
+  return { pointSum, answerSum };
 }
 
 // if we have personalised content, like name, to reuse in the form text
