@@ -489,14 +489,11 @@ let inputShowed = false;
 function showResult () {
   const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
   const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
-  console.log(resultScreens)
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
-  console.log(answerNumber)
   const pointFinalSum = pointSum();
   !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
-  console.log(pointFinalSum)
   if (inputScreens.length === 0 || inputShowed === true) {
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'none';
@@ -660,7 +657,7 @@ function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, cu
 // show the leaderboard
 function showLeaderboard () {
   const leaderboardScreen = document.querySelector('[nqy-quiz="leaderboard-result"]');
-  const result = document.querySelector('[nqy-quiz="result"]');
+  const finalScreens = document.querySelectorAll('[nqy-step="final"]');
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   const quizName = document.querySelector('[nqy-quiz="quiz-name"]').innerHTML;
   const resultScreen = document.querySelector('[nqy-quiz="leaderboard-wrapper"]');
@@ -762,7 +759,9 @@ function showLeaderboard () {
         }
       }
       leaderboardScreen.style.display = 'flex';
-      result.style.display = 'none';
+      finalScreens.forEach((finalScreen) => {
+        finalScreen.style.display = 'none';
+      });
     })
     .catch((error) => {
       showError(error.message)
