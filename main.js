@@ -467,15 +467,14 @@ function showResult () {
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
+  console.log(pointFinalSum)
   if (inputScreens.length === 0 || inputShowed === true) {
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'none';
     });
     if (resultScreens.length === 1) {
-      console.log('one result screen')
       resultScreens[0].style.display = 'block';
     } else {
-      console.log('more than one result screen')
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
         const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
@@ -491,6 +490,7 @@ function showResult () {
         }
       };
       if (answerNumber.length !== 0) {
+        console.log(answerNumber)
         for (let i = 0; i < answerNumber.length; i++) {
           answerNumber[i].innerHTML = pointFinalSum;
         }
@@ -519,7 +519,6 @@ function pointSum () {
     const quizPointsItem = document.querySelector('[nqy-quiz="points"]');
     let quizPointsNumber = 0;
     quizPointsItem ? quizPointsNumber = Number(quizPointsItem.innerHTML) : null;
-    console.log(quizPointsNumber)
     const answerArray = answerString.split(',');
     for (let i = 0; i < answerArray.length; i++) {
       if (answerArray[i] === 'true') {
@@ -527,7 +526,6 @@ function pointSum () {
       }
     }
   }
-  console.log(pointSum)
   return pointSum;
 }
 
