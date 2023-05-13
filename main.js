@@ -460,7 +460,9 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
-  const resultScreens = document.querySelectorAll('[nqy-step="final"]');
+  const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
+  const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
+  console.log(resultScreens)
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
