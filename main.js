@@ -440,7 +440,6 @@ function saveAnswerText (currentQuestion) {
       labelText = label.textContent;
     }
   }
-  console.log(labelText)
   const existingAllAnswers = sessionStorage.getItem('all-answers');
   existingAllAnswers ? sessionStorage.setItem('all-answers', `${existingAllAnswers},${labelText}`) : sessionStorage.setItem('all-answers', `${labelText}`)
 }
@@ -493,7 +492,6 @@ function showResult () {
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
-  console.log(pointFinalSum)
   !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
   if (inputScreens.length === 0 || inputShowed === true) {
     inputScreens.forEach((inputScreen) => {
@@ -620,7 +618,6 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
 
 // sending the user results to the db
 function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, currentUserId) {
-  console.log(totalPoints)
   const finalData = {
     total_points: Number(totalPoints),
     name: userName,
