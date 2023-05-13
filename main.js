@@ -512,6 +512,8 @@ function showResult () {
       };
     }
     if (pointNumber.length !== 0) {
+      console.log(pointNumber)
+      console.log(pointFinalSum)
       for (let i = 0; i < pointNumber.length; i++) {
         pointNumber[i].innerHTML = pointFinalSum;
       }
