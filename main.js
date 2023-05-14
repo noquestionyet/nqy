@@ -64,6 +64,7 @@ quizForms.forEach((quizForm) => {
     const questionAttribute = questionSteps[i].getAttribute('nqy-step');
     if (questionAttribute !== 'final') {
       questionsNumber++;
+      console.log(questionsNumber)
     }
   }
   // show the total amount of questions
