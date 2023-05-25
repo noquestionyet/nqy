@@ -389,11 +389,13 @@ function updateProgress (stepNumber, quizForm) {
     })
     const totalQuestions = questionNumber;
     const progress = (currentQuestionNumber / totalQuestions) * 100;
-    const progressBar = document.querySelector('[nqy-progress="progress-bar"]');
+    const progressBar = document.querySelectorAll('[nqy-progress="progress-bar"]');
     const progressBarCircle = document.querySelector('[nqy-progress="progress-circle"]');
     const progressBarPart = document.querySelector('[nqy-progress="progress-part"]');
     if (progressBar) {
-      progressBar.style.width = `${progress}%`
+      progressBar.forEach((progressBarElement) => {
+        progressBarElement.style.width = `${progress}%`
+      })
     }
     if (progressBarPart) {
       const progressBarPartElement = progressBarPart.querySelectorAll('[nqy-progress="part-element"]');
