@@ -280,6 +280,7 @@ function previousQuestion (quizForm) {
   const existingStepFlow = sessionStorage.getItem('stepFlow');
   const existingStepFlowArray = existingStepFlow.split(',');
   const previousQuestionNumber = existingStepFlowArray.at(-2);
+  console.log(previousQuestionNumber)
   // changes in the UI
   const previousQuestion = quizForm.querySelector(`[nqy-step='${previousQuestionNumber}']`);
   const currentQuestion = quizForm.querySelector('.current-question');
@@ -291,6 +292,7 @@ function previousQuestion (quizForm) {
   updateProgress(previousQuestionNumber, quizForm);
   // delete previous step from session storage
   const newStepFlowArray = existingStepFlowArray.splice(-1);
+  console.log(newStepFlowArray)
   const newStepFlow = newStepFlowArray.toString();
   sessionStorage.setItem('stepFlow', `${newStepFlow}`);
   // delete last text answer from session storage
