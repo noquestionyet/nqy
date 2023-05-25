@@ -290,13 +290,13 @@ function previousQuestion (quizForm) {
   currentQuestionNumber(previousQuestion, previousQuestionNumber);
   updateProgress(previousQuestionNumber, quizForm);
   // delete previous step from session storage
-  const newStepFlowArray = existingStepFlowArray.splice(-1);
+  const newStepFlowArray = existingStepFlowArray.slice(0, -1);
   const newStepFlow = newStepFlowArray.toString();
   sessionStorage.setItem('stepFlow', `${newStepFlow}`);
   // delete last text answer from session storage
   const existingAnswers = sessionStorage.getItem('all-answers');
   const existingAnswersArray = existingAnswers.split(',');
-  const newAnswersArray = existingAnswersArray.splice(-1);
+  const newAnswersArray = existingAnswersArray.slice(0, -1);
   const newAnswers = newAnswersArray.toString();
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
