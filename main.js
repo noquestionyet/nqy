@@ -422,11 +422,11 @@ function savePoints (currentQuestion) {
         currentQuestionPointNumber = currentQuestionPointAttribute;
       }
     })
-    const existingPoints = sessionStorage.getItem('points');
+    const existingPoints = sessionStorage.getItem('point-numbers');
     if (existingPoints) {
-      return sessionStorage.setItem('points', `${existingPoints},${currentQuestionPointNumber}`);
+      return sessionStorage.setItem('point-numbers', `${existingPoints},${currentQuestionPointNumber}`);
     }
-    return sessionStorage.setItem('points', `${currentQuestionPointNumber}`);
+    return sessionStorage.setItem('point-numbers', `${currentQuestionPointNumber}`);
   }
 }
 
@@ -467,9 +467,9 @@ function saveTotalAnswers (currentQuestion) {
 function deleteResults () {
   let existingResults = '';
   let existingName;
-  if (sessionStorage.getItem('points')) {
-    existingResults = sessionStorage.getItem('points');
-    existingName = 'points';
+  if (sessionStorage.getItem('point-numbers')) {
+    existingResults = sessionStorage.getItem('point-numbers');
+    existingName = 'point-numbers';
   }
   if (sessionStorage.getItem('state')) {
     existingResults = sessionStorage.getItem('state');
