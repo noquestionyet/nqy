@@ -530,7 +530,7 @@ function showResult () {
 
 // get the sum of the points/right answers
 function pointSum () {
-  const pointString = sessionStorage.getItem('points');
+  const pointString = sessionStorage.getItem('point-numbers');
   const answerString = sessionStorage.getItem('state');
   let pointSum = 0;
   if (pointString) {
