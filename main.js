@@ -389,11 +389,13 @@ function updateProgress (stepNumber, quizForm) {
     })
     const totalQuestions = questionNumber;
     const progress = (currentQuestionNumber / totalQuestions) * 100;
-    const progressBar = document.querySelector('[nqy-progress="progress-bar"]');
+    const progressBar = document.querySelectorAll('[nqy-progress="progress-bar"]');
     const progressBarCircle = document.querySelector('[nqy-progress="progress-circle"]');
     const progressBarPart = document.querySelector('[nqy-progress="progress-part"]');
     if (progressBar) {
-      progressBar.style.width = `${progress}%`
+      progressBar.forEach((progressBarElement) => {
+        progressBarElement.style.width = `${progress}%`
+      })
     }
     if (progressBarPart) {
       const progressBarPartElement = progressBarPart.querySelectorAll('[nqy-progress="part-element"]');
@@ -422,11 +424,11 @@ function savePoints (currentQuestion) {
         currentQuestionPointNumber = currentQuestionPointAttribute;
       }
     })
-    const existingPoints = sessionStorage.getItem('points');
+    const existingPoints = sessionStorage.getItem('point-numbers');
     if (existingPoints) {
-      return sessionStorage.setItem('points', `${existingPoints},${currentQuestionPointNumber}`);
+      return sessionStorage.setItem('point-numbers', `${existingPoints},${currentQuestionPointNumber}`);
     }
-    return sessionStorage.setItem('points', `${currentQuestionPointNumber}`);
+    return sessionStorage.setItem('point-numbers', `${currentQuestionPointNumber}`);
   }
 }
 
@@ -467,9 +469,9 @@ function saveTotalAnswers (currentQuestion) {
 function deleteResults () {
   let existingResults = '';
   let existingName;
-  if (sessionStorage.getItem('points')) {
-    existingResults = sessionStorage.getItem('points');
-    existingName = 'points';
+  if (sessionStorage.getItem('point-numbers')) {
+    existingResults = sessionStorage.getItem('point-numbers');
+    existingName = 'point-numbers';
   }
   if (sessionStorage.getItem('state')) {
     existingResults = sessionStorage.getItem('state');
@@ -530,7 +532,7 @@ function showResult () {
 
 // get the sum of the points/right answers
 function pointSum () {
-  const pointString = sessionStorage.getItem('points');
+  const pointString = sessionStorage.getItem('point-numbers');
   const answerString = sessionStorage.getItem('state');
   let pointSum = 0;
   if (pointString) {
