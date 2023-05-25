@@ -393,9 +393,7 @@ function updateProgress (stepNumber, quizForm) {
     const progressBarCircle = document.querySelector('[nqy-progress="progress-circle"]');
     const progressBarPart = document.querySelector('[nqy-progress="progress-part"]');
     if (progressBar) {
-      console.log(`progress is ${progress}`)
       progressBar.forEach((progressBarElement) => {
-        console.log(progressBarElement)
         progressBarElement.style.width = `${progress}%`
       })
     }
