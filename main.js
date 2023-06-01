@@ -152,7 +152,7 @@ function checkRequiredFields (currentQuestion) {
 }
 
 // Check if required inputs are filled on every input change
-const currentQuestions = document.querySelectorAll('.current-question');
+const currentQuestions = document.querySelectorAll('[nqy-step]');
 console.log(currentQuestions)
 currentQuestions.forEach(currentQuestion => {
   currentQuestion.addEventListener('input', () => {
