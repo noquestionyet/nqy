@@ -137,7 +137,6 @@ function checkRequiredFields (currentQuestion) {
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
     return Array.from(requiredFields).every(field => {
-      console.log(field.type)
       if (field.type === 'checkbox' || field.type === 'radio') {
         return field.checked;
       } else if (field.type === 'email') {
@@ -145,6 +144,7 @@ function checkRequiredFields (currentQuestion) {
         const emailMatch = emailLowerCase.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         return emailMatch !== null;
       } else {
+        console.log(field.type)
         console.log(field.value.trim())
         return field.value.trim() !== '';
       }
