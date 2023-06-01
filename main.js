@@ -143,6 +143,7 @@ function checkRequiredFields (currentQuestion) {
         const emailMatch = emailLowerCase.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         return emailMatch !== null;
       } else {
+        console.log(field.value.trim())
         return field.value.trim() !== '';
       }
     });
@@ -165,8 +166,10 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     nextButton.style.opacity = '1';
     filledState = true; // this goes to the show next question function
   } else {
-    nextButton.style.opacity = '0.6';
-    filledState = false;
+    if (nextButton) {
+      nextButton.style.opacity = '0.6';
+      filledState = false;
+    }
   }
 }
 
@@ -239,6 +242,7 @@ if (previousButtons.length !== 0) {
 
 // show next question
 function nextQuestion (stepNumber, quizForm) {
+  console.log(stepNumber)
   const currentQuestion = quizForm.querySelector('.current-question');
   if (filledState) {
     savePoints(currentQuestion);
