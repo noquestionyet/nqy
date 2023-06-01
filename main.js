@@ -209,7 +209,7 @@ if (nextButtons.length !== 0) {
           console.log('reached conditional')
           findNextQuestion(nextButton);
         }
-        if (!nextStepNumber) {
+        if (!nextStepNumber && !stepConditional) {
           const currentStep = currentQuestion.getAttribute('nqy-step');
           const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
           const nextStepNumber = currentStepNumber + 1;
