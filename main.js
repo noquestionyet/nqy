@@ -150,7 +150,7 @@ function checkRequiredFields (currentQuestion) {
 }
 
 // Check if required inputs are filled on every input change
-const currentQuestions = document.querySelectorAll('.current-question');
+const currentQuestions = document.querySelectorAll('[nqy-step]');
 currentQuestions.forEach(currentQuestion => {
   currentQuestion.addEventListener('input', () => {
     const allFieldsFilled = checkRequiredFields(currentQuestion);
@@ -165,8 +165,10 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     nextButton.style.opacity = '1';
     filledState = true; // this goes to the show next question function
   } else {
-    nextButton.style.opacity = '0.6';
-    filledState = false;
+    if (nextButton) {
+      nextButton.style.opacity = '0.6';
+      filledState = false;
+    }
   }
 }
 
@@ -202,7 +204,11 @@ if (nextButtons.length !== 0) {
         if (nextStepNumber) {
           nextQuestion(nextStepNumber, quizForm);
         }
-        if (!nextStepNumber) {
+        // conditional logic next step call
+        if (stepConditional) {
+          findNextQuestion(nextButton);
+        }
+        if (!nextStepNumber && !stepConditional) {
           const currentStep = currentQuestion.getAttribute('nqy-step');
           const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
           const nextStepNumber = currentStepNumber + 1;
@@ -210,10 +216,6 @@ if (nextButtons.length !== 0) {
           const nextQuestionStep = quizForm.querySelector(`[nqy-step='step-${nextStepNumber}']`);
           !nextQuestionStep ? nextStep = 'final' : null;
           nextQuestion(nextStep, quizForm);
-        }
-        // conditional logic next step call
-        if (stepConditional) {
-          findNextQuestion(nextButton);
         }
         // add custom content from inputs
         if (stepCopyTarget) {
@@ -267,6 +269,7 @@ function findNextQuestion (currentQuestionNextButton) {
   const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
   for (let i = 0; i < radioButtons.length; i++) {
     if (radioButtons[i].checked) {
+      console.log(radioButtons[i])
       const stepNumber = radioButtons[i].getAttribute('nqy-destination');
       const quizForm = radioButtons[i].closest('[nqy-form]');
       nextQuestion(stepNumber, quizForm);
