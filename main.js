@@ -206,7 +206,6 @@ if (nextButtons.length !== 0) {
         }
         // conditional logic next step call
         if (stepConditional) {
-          console.log('reached conditional')
           findNextQuestion(nextButton);
         }
         if (!nextStepNumber && !stepConditional) {
@@ -242,7 +241,6 @@ if (previousButtons.length !== 0) {
 
 // show next question
 function nextQuestion (stepNumber, quizForm) {
-  console.log(stepNumber)
   const currentQuestion = quizForm.querySelector('.current-question');
   if (filledState) {
     savePoints(currentQuestion);
