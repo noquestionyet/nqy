@@ -162,8 +162,10 @@ currentQuestions.forEach(currentQuestion => {
 function setNextButtonState (allFieldsFilled, currentQuestion) {
   const nextButton = currentQuestion.querySelector('[nqy-action="next"]');
   if (allFieldsFilled) {
-    nextButton.style.opacity = '1';
-    filledState = true; // this goes to the show next question function
+    if (nextButton) {
+      nextButton.style.opacity = '1';
+      filledState = true; // this goes to the show next question function
+    }
   } else {
     if (nextButton) {
       nextButton.style.opacity = '0.6';
