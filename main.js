@@ -204,6 +204,11 @@ if (nextButtons.length !== 0) {
         if (nextStepNumber) {
           nextQuestion(nextStepNumber, quizForm);
         }
+        // conditional logic next step call
+        if (stepConditional) {
+          console.log('reached conditional')
+          findNextQuestion(nextButton);
+        }
         if (!nextStepNumber) {
           const currentStep = currentQuestion.getAttribute('nqy-step');
           const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
@@ -212,10 +217,6 @@ if (nextButtons.length !== 0) {
           const nextQuestionStep = quizForm.querySelector(`[nqy-step='step-${nextStepNumber}']`);
           !nextQuestionStep ? nextStep = 'final' : null;
           nextQuestion(nextStep, quizForm);
-        }
-        // conditional logic next step call
-        if (stepConditional) {
-          findNextQuestion(nextButton);
         }
         // add custom content from inputs
         if (stepCopyTarget) {
