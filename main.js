@@ -143,8 +143,6 @@ function checkRequiredFields (currentQuestion) {
         const emailMatch = emailLowerCase.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         return emailMatch !== null;
       } else {
-        console.log(field.type)
-        console.log(field.value.trim())
         return field.value.trim() !== '';
       }
     });
@@ -153,10 +151,8 @@ function checkRequiredFields (currentQuestion) {
 
 // Check if required inputs are filled on every input change
 const currentQuestions = document.querySelectorAll('[nqy-step]');
-console.log(currentQuestions)
 currentQuestions.forEach(currentQuestion => {
   currentQuestion.addEventListener('input', () => {
-    console.log('input func fires')
     const allFieldsFilled = checkRequiredFields(currentQuestion);
     setNextButtonState(allFieldsFilled, currentQuestion);
   })
