@@ -133,7 +133,6 @@ function turnOffNativeForm (quizForm) {
 // call validatation func on every input change
 function checkRequiredFields (currentQuestion) {
   const requiredFields = currentQuestion.querySelectorAll('[required]');
-  console.log(requiredFields)
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
     return Array.from(requiredFields).every(field => {
@@ -156,6 +155,7 @@ function checkRequiredFields (currentQuestion) {
 const currentQuestions = document.querySelectorAll('.current-question');
 currentQuestions.forEach(currentQuestion => {
   currentQuestion.addEventListener('input', () => {
+    console.log('input func fires')
     const allFieldsFilled = checkRequiredFields(currentQuestion);
     setNextButtonState(allFieldsFilled, currentQuestion);
   })
