@@ -270,7 +270,7 @@ function findNextQuestion (currentQuestionNextButton) {
   const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
   for (let i = 0; i < radioButtons.length; i++) {
     if (radioButtons[i].checked) {
-      console.log(radioButtons[i].checked)
+      console.log(radioButtons[i])
       const stepNumber = radioButtons[i].getAttribute('nqy-destination');
       const quizForm = radioButtons[i].closest('[nqy-form]');
       nextQuestion(stepNumber, quizForm);
