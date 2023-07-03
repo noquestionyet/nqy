@@ -703,7 +703,7 @@ function showLeaderboard () {
 
       let loopTime;
       data.length < 11 ? loopTime = data.length : loopTime = 10;
-      const currentEmailLocalStorage = localStorage.getItem('current-email') // ADD EMAIL TO LOCAL STORAGE!!!
+      const currentEmailLocalStorage = sessionStorage.getItem('current-email') // ADD EMAIL TO LOCAL STORAGE!!!
       const currentParticipant = currentEmailLocalStorage;
       for (let i = 0; i < data.length; i++) {
         if (currentParticipant === data[i].email) {
