@@ -80,6 +80,7 @@ quizForms.forEach((quizForm) => {
     const bStep = parseInt(b.getAttribute('nqy-step').replace('step-', ''));
     return aStep - bStep;
   });
+  console.log(questionStepsArray);
   for (let i = 0; i < questionStepsArray.length; i++) {
     questionStepsArray[i].style.display = 'none';
     if (i === 0) {
