@@ -75,6 +75,7 @@ quizForms.forEach((quizForm) => {
   createProgress(quizForm);
   // hide all questions apart the first
   const questionStepsArray = Array.from(questionSteps);
+  console.log(questionStepsArray)
   questionStepsArray.sort(function (a, b) {
     const aStep = parseInt(a.getAttribute('nqy-step').replace('step-', ''));
     const bStep = parseInt(b.getAttribute('nqy-step').replace('step-', ''));
