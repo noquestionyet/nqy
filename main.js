@@ -75,13 +75,11 @@ quizForms.forEach((quizForm) => {
   createProgress(quizForm);
   // hide all questions apart the first
   const questionStepsArray = Array.from(questionSteps);
-  console.log(questionStepsArray)
   questionStepsArray.sort(function (a, b) {
     const aStep = parseInt(a.getAttribute('nqy-step').replace('step-', ''));
     const bStep = parseInt(b.getAttribute('nqy-step').replace('step-', ''));
     return aStep - bStep;
   });
-  console.log(questionStepsArray)
   for (let i = 0; i < questionStepsArray.length; i++) {
     questionStepsArray[i].style.display = 'none';
     if (i === 0) {
@@ -140,7 +138,6 @@ function turnOffNativeForm (quizForm) {
 // every time the new question appears, check if there are required fields
 // call validatation func on every input change
 function checkRequiredFields (currentQuestion) {
-  console.log(currentQuestion)
   const requiredFields = currentQuestion.querySelectorAll('[required]');
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
