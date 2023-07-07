@@ -74,6 +74,13 @@ quizForms.forEach((quizForm) => {
   // create progress bars
   createProgress(quizForm);
   // hide all questions apart the first
+  const questionStepsArray = Array.from(questionSteps);
+  questionStepsArray.sort(function (a, b) {
+    const aStep = parseInt(a.getAttribute('nqy-step').replace('step-', ''));
+    const bStep = parseInt(b.getAttribute('nqy-step').replace('step-', ''));
+    return aStep - bStep;
+  });
+  console.log(questionStepsArray)
   for (let i = 0; i < questionSteps.length; i++) {
     questionSteps[i].style.display = 'none';
     if (i === 0) {
