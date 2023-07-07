@@ -82,15 +82,15 @@ quizForms.forEach((quizForm) => {
     return aStep - bStep;
   });
   console.log(questionStepsArray)
-  for (let i = 0; i < questionSteps.length; i++) {
-    questionSteps[i].style.display = 'none';
+  for (let i = 0; i < questionStepsArray.length; i++) {
+    questionStepsArray[i].style.display = 'none';
     if (i === 0) {
-      questionSteps[i].style.display = 'block';
-      questionSteps[i].classList.add('current-question');
+      questionStepsArray[i].style.display = 'block';
+      questionStepsArray[i].classList.add('current-question');
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
       } else {
-        checkRequiredFields(questionSteps[i]);
+        checkRequiredFields(questionStepsArray[i]);
       }
     }
   }
