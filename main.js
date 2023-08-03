@@ -141,6 +141,7 @@ function checkRequiredFields (currentQuestion) {
   console.log(currentQuestion)
   const requiredFields = currentQuestion.querySelectorAll('[required]');
   if (requiredFields.length !== 0) {
+    console.log(requiredFields.length)
     setNextButtonState(false, currentQuestion);
     return Array.from(requiredFields).every(field => {
       if (field.type === 'checkbox' || field.type === 'radio') {
@@ -173,8 +174,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     if (nextButton) {
       nextButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
-    }
-    if (sumbitButton) {
+    } else if (sumbitButton) {
       sumbitButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
     }
@@ -182,8 +182,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     if (nextButton) {
       nextButton.style.opacity = '0.6';
       filledState = false;
-    }
-    if (sumbitButton) {
+    } else if (sumbitButton) {
       sumbitButton.style.opacity = '0.6';
       filledState = false;
     }
@@ -517,6 +516,7 @@ function showResult () {
   !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
   if (inputScreens.length === 0 || inputShowed === true) {
     if (filledState) {
+      console.log(filledState)
       inputScreens.forEach((inputScreen) => {
         inputScreen.style.display = 'none';
       });
@@ -545,6 +545,7 @@ function showResult () {
       };
     }
   } else {
+    console.log(filledState)
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'block';
       inputShowed = true;
