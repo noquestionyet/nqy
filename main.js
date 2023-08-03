@@ -167,14 +167,17 @@ currentQuestions.forEach(currentQuestion => {
 // Enable/disable the next button based on the allFieldsFilled parameter
 function setNextButtonState (allFieldsFilled, currentQuestion) {
   const nextButton = currentQuestion.querySelector('[nqy-action="next"]');
+  const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
-    if (nextButton) {
+    if (nextButton || sumbitButton) {
       nextButton.style.opacity = '1';
+      sumbitButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
     }
   } else {
-    if (nextButton) {
+    if (nextButton || sumbitButton) {
       nextButton.style.opacity = '0.6';
+      sumbitButton.style.opacity = '0.6';
       filledState = false;
     }
   }
@@ -506,36 +509,39 @@ function showResult () {
   const pointFinalSum = pointSum();
   !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
   if (inputScreens.length === 0 || inputShowed === true) {
-    inputScreens.forEach((inputScreen) => {
-      inputScreen.style.display = 'none';
-    });
-    if (resultScreens.length === 1) {
-      resultScreens[0].style.display = 'block';
-    } else {
-      const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
-        const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
-        const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
-        return minRange <= Number(sessionStorage.getItem('points')) && Number(sessionStorage.getItem('points')) <= maxRange;
+    if (filledState) {
+      inputScreens.forEach((inputScreen) => {
+        inputScreen.style.display = 'none';
       });
+      if (resultScreens.length === 1) {
+        resultScreens[0].style.display = 'block';
+      } else {
+        const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
+          const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
+          const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
+          return minRange <= Number(sessionStorage.getItem('points')) && Number(sessionStorage.getItem('points')) <= maxRange;
+        });
 
-      if (matchingResultScreen) {
-        matchingResultScreen.style.display = 'block';
+        if (matchingResultScreen) {
+          matchingResultScreen.style.display = 'block';
+        };
+      }
+      if (pointNumber.length !== 0) {
+        for (let i = 0; i < pointNumber.length; i++) {
+          pointNumber[i].innerHTML = sessionStorage.getItem('points');
+        }
+      };
+      if (answerNumber.length !== 0) {
+        for (let i = 0; i < answerNumber.length; i++) {
+          answerNumber[i].innerHTML = sessionStorage.getItem('points');
+        }
       };
     }
-    if (pointNumber.length !== 0) {
-      for (let i = 0; i < pointNumber.length; i++) {
-        pointNumber[i].innerHTML = sessionStorage.getItem('points');
-      }
-    };
-    if (answerNumber.length !== 0) {
-      for (let i = 0; i < answerNumber.length; i++) {
-        answerNumber[i].innerHTML = sessionStorage.getItem('points');
-      }
-    };
   } else {
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'block';
       inputShowed = true;
+      checkRequiredFields(inputScreen)
     });
   }
 }
