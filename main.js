@@ -515,36 +515,36 @@ function showResult () {
   const pointFinalSum = pointSum();
   !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
   if (inputScreens.length === 0 || inputShowed === true) {
-      inputScreens.forEach((inputScreen) => {
-        inputScreen.style.display = 'none';
-      });
-    
-      if (resultScreens.length === 1) {
-        resultScreens[0].style.display = 'block';
-      } else {
-        const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
-          const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
-          const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
-          return minRange <= Number(sessionStorage.getItem('points')) && Number(sessionStorage.getItem('points')) <= maxRange;
-        });
+    inputScreens.forEach((inputScreen) => {
+      inputScreen.style.display = 'none';
+    });
 
-        if (matchingResultScreen) {
-          matchingResultScreen.style.display = 'block';
-        };
-      }
-      if (pointNumber.length !== 0) {
-        for (let i = 0; i < pointNumber.length; i++) {
-          pointNumber[i].innerHTML = sessionStorage.getItem('points');
-        }
-      };
-      if (answerNumber.length !== 0) {
-        for (let i = 0; i < answerNumber.length; i++) {
-          answerNumber[i].innerHTML = sessionStorage.getItem('points');
-        }
-      };
+    if (resultScreens.length === 1) {
+      resultScreens[0].style.display = 'block';
     } else {
-      console.log(filledState)
-      inputScreens.forEach((inputScreen) => {
+      const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
+        const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
+        const maxRange = Number(resultScreen.getAttribute('nqy-range-to'));
+        return minRange <= Number(sessionStorage.getItem('points')) && Number(sessionStorage.getItem('points')) <= maxRange;
+      });
+
+      if (matchingResultScreen) {
+        matchingResultScreen.style.display = 'block';
+      };
+    }
+    if (pointNumber.length !== 0) {
+      for (let i = 0; i < pointNumber.length; i++) {
+        pointNumber[i].innerHTML = sessionStorage.getItem('points');
+      }
+    };
+    if (answerNumber.length !== 0) {
+      for (let i = 0; i < answerNumber.length; i++) {
+        answerNumber[i].innerHTML = sessionStorage.getItem('points');
+      }
+    };
+  } else {
+    console.log(filledState)
+    inputScreens.forEach((inputScreen) => {
       if (filledState) {
         inputScreen.style.display = 'block';
         inputShowed = true;
@@ -553,6 +553,7 @@ function showResult () {
       }
     });
   }
+}
 
 // get the sum of the points/right answers
 function pointSum () {
