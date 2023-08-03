@@ -170,14 +170,20 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
   const nextButton = currentQuestion.querySelector('[nqy-action="next"]');
   const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
-    if (nextButton || sumbitButton) {
+    if (nextButton) {
       nextButton.style.opacity = '1';
+      filledState = true; // this goes to the show next question function
+    }
+    if (sumbitButton) {
       sumbitButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
     }
   } else {
-    if (nextButton || sumbitButton) {
+    if (nextButton) {
       nextButton.style.opacity = '0.6';
+      filledState = false;
+    }
+    if (sumbitButton) {
       sumbitButton.style.opacity = '0.6';
       filledState = false;
     }
