@@ -138,6 +138,7 @@ function turnOffNativeForm (quizForm) {
 // every time the new question appears, check if there are required fields
 // call validatation func on every input change
 function checkRequiredFields (currentQuestion) {
+  console.log(currentQuestion)
   const requiredFields = currentQuestion.querySelectorAll('[required]');
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
@@ -541,7 +542,7 @@ function showResult () {
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'block';
       inputShowed = true;
-      checkRequiredFields(inputScreen)
+      checkRequiredFields(inputScreen);
     });
   }
 }
