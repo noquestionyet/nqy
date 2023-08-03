@@ -514,9 +514,8 @@ function showResult () {
   const answerNumber = document.querySelectorAll('[nqy-result="answers"]');
   const pointFinalSum = pointSum();
   !sessionStorage.getItem('points') ? sessionStorage.setItem('points', pointFinalSum) : null;
-  if (inputScreens.length === 0 || inputShowed === true) {
-    if (filledState) {
-      console.log(filledState)
+  if (filledState) {
+    if (inputScreens.length === 0 || inputShowed === true) {
       inputScreens.forEach((inputScreen) => {
         inputScreen.style.display = 'none';
       });
