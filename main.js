@@ -168,6 +168,7 @@ currentQuestions.forEach(currentQuestion => {
 
 // Enable/disable the next button based on the allFieldsFilled parameter
 function setNextButtonState (allFieldsFilled, currentQuestion) {
+  console.log(allFieldsFilled)
   const nextButton = currentQuestion.querySelector('[nqy-action="next"]');
   const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
@@ -260,6 +261,7 @@ if (previousButtons.length !== 0) {
 function nextQuestion (stepNumber, quizForm) {
   const currentQuestion = quizForm.querySelector('.current-question');
   if (filledState) {
+    console.log(filledState)
     savePoints(currentQuestion);
     saveTotalAnswers(currentQuestion);
     saveAnswerText(currentQuestion);
