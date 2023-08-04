@@ -166,7 +166,6 @@ currentQuestions.forEach(currentQuestion => {
 
 // Enable/disable the next button based on the allFieldsFilled parameter
 function setNextButtonState (allFieldsFilled, currentQuestion) {
-  console.log(allFieldsFilled)
   const nextButton = currentQuestion.querySelector('[nqy-action="next"]');
   const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
@@ -178,7 +177,6 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
       sumbitButton.style.opacity = '1';
       filledState = true;
       sumbitButton.removeAttribute('disabled');
-      console.log(`filledState is finally ${filledState}`)
     }
   } else {
     if (nextButton) {
@@ -186,7 +184,6 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
       filledState = false;
     }
     if (sumbitButton) {
-      console.log('we are here')
       sumbitButton.style.opacity = '0.6';
       filledState = false;
       sumbitButton.setAttribute('disabled', '');
@@ -512,7 +509,6 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
-  console.log(`inputShowed is ${inputShowed}`)
   const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
   const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
@@ -552,7 +548,6 @@ function showResult () {
     inputScreens.forEach((inputScreen) => {
       checkRequiredFields(inputScreen);
       inputScreen.style.display = 'block';
-      console.log(`this is filledState in input ${filledState}`)
       inputShowed = true;
     });
   }
@@ -645,7 +640,6 @@ function getDbData () {
 if (document.querySelector('[nqy-quiz="submit"]')) {
   const submitBtn = document.querySelector('[nqy-quiz="submit"]');
   if (!submitBtn.hasAttribute('disabled')) {
-    console.log('not disabled')
     submitBtn.addEventListener('click', getDbData);
   }
 }
