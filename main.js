@@ -182,6 +182,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
       nextButton.style.opacity = '0.6';
       filledState = false;
     } else if (sumbitButton) {
+      console.log('we are here')
       sumbitButton.style.opacity = '0.6';
       filledState = false;
     }
