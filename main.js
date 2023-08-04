@@ -187,7 +187,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
       console.log('we are here')
       sumbitButton.style.opacity = '0.6';
       filledState = false;
-      sumbitButton.setAttribute('disabled');
+      sumbitButton.setAttribute('disabled', '');
     }
   }
 }
