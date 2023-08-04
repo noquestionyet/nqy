@@ -193,6 +193,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
 
 // show validation error
 function validationError (currentQuestion) {
+  console.log('error')
   const requiredFields = currentQuestion.querySelectorAll('[required]');
   requiredFields.forEach(field => {
     if (field.type === 'checkbox' || field.type === 'radio') {
