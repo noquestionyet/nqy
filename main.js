@@ -173,7 +173,8 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     if (nextButton) {
       nextButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
-    } else if (sumbitButton) {
+    }
+    if (sumbitButton) {
       sumbitButton.style.opacity = '1';
       filledState = true;
       sumbitButton.removeAttribute('disabled');
@@ -183,7 +184,8 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     if (nextButton) {
       nextButton.style.opacity = '0.6';
       filledState = false;
-    } else if (sumbitButton) {
+    }
+    if (sumbitButton) {
       console.log('we are here')
       sumbitButton.style.opacity = '0.6';
       filledState = false;
