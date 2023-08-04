@@ -644,7 +644,9 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
     submitBtn.addEventListener('click', getDbData);
   } else {
     submitBtn.addEventListener('click', () => {
-      console.log(submitBtn.closest(document.querySelector('[nqy-data="data"]')))
+      console.log(submitBtn)
+      const submitParent = submitBtn.closest(document.querySelector('[nqy-data="data"]'));
+      console.log(submitParent)
       validationError(submitBtn.closest(document.querySelector('[nqy-data="data"]')));
     })
   }
