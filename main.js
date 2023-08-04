@@ -545,13 +545,12 @@ function showResult () {
       }
     };
   } else {
-    console.log(filledState)
     inputScreens.forEach((inputScreen) => {
       checkRequiredFields(inputScreen);
       inputScreen.style.display = 'block';
       if (filledState) {
         inputShowed = true;
-        console.log(inputShowed)
+        console.log(`final inputShow ${inputShowed}`)
       }
     });
   }
