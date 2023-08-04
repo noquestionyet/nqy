@@ -175,14 +175,14 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
       filledState = true; // this goes to the show next question function
     } else if (sumbitButton) {
       sumbitButton.style.opacity = '1';
-      filledState = true; // this goes to the show next question function
+      filledState = true;
+      sumbitButton.removeAttribute('disabled');
       console.log(`filledState is finally ${filledState}`)
     }
   } else {
     if (nextButton) {
       nextButton.style.opacity = '0.6';
       filledState = false;
-      sumbitButton.removeAttribute('disabled');
     } else if (sumbitButton) {
       console.log('we are here')
       sumbitButton.style.opacity = '0.6';
