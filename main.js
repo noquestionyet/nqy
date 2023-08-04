@@ -643,6 +643,7 @@ function getDbData () {
 if (document.querySelector('[nqy-quiz="submit"]')) {
   const submitBtn = document.querySelector('[nqy-quiz="submit"]');
   if (!submitBtn.hasAttribute('disabled')) {
+    console.log('not disabled')
     submitBtn.addEventListener('click', getDbData);
   }
 }
