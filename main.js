@@ -167,15 +167,26 @@ currentQuestions.forEach(currentQuestion => {
 // Enable/disable the next button based on the allFieldsFilled parameter
 function setNextButtonState (allFieldsFilled, currentQuestion) {
   const nextButton = currentQuestion.querySelector('[nqy-action="next"]');
+  const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
     if (nextButton) {
       nextButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
     }
+    if (sumbitButton) {
+      sumbitButton.style.opacity = '1';
+      filledState = true;
+      sumbitButton.removeAttribute('disabled');
+    }
   } else {
     if (nextButton) {
       nextButton.style.opacity = '0.6';
       filledState = false;
+    }
+    if (sumbitButton) {
+      sumbitButton.style.opacity = '0.6';
+      filledState = false;
+      sumbitButton.setAttribute('disabled', '');
     }
   }
 }
@@ -509,6 +520,7 @@ function showResult () {
     inputScreens.forEach((inputScreen) => {
       inputScreen.style.display = 'none';
     });
+
     if (resultScreens.length === 1) {
       resultScreens[0].style.display = 'block';
     } else {
@@ -534,6 +546,7 @@ function showResult () {
     };
   } else {
     inputScreens.forEach((inputScreen) => {
+      checkRequiredFields(inputScreen);
       inputScreen.style.display = 'block';
       inputShowed = true;
     });
@@ -625,7 +638,10 @@ function getDbData () {
 }
 
 if (document.querySelector('[nqy-quiz="submit"]')) {
-  document.querySelector('[nqy-quiz="submit"]').addEventListener('click', getDbData);
+  const submitBtn = document.querySelector('[nqy-quiz="submit"]');
+  if (!submitBtn.hasAttribute('disabled')) {
+    submitBtn.addEventListener('click', getDbData);
+  }
 }
 
 // sending the user results to the db
