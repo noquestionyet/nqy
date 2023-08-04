@@ -182,10 +182,12 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     if (nextButton) {
       nextButton.style.opacity = '0.6';
       filledState = false;
+      sumbitButton.removeAttribute('disabled');
     } else if (sumbitButton) {
       console.log('we are here')
       sumbitButton.style.opacity = '0.6';
       filledState = false;
+      sumbitButton.setAttribute('disabled');
     }
   }
 }
@@ -549,10 +551,7 @@ function showResult () {
       checkRequiredFields(inputScreen);
       inputScreen.style.display = 'block';
       console.log(`this is filledState in input ${filledState}`)
-      if (filledState) {
-        inputShowed = true;
-        console.log(`final inputShow ${inputShowed}`)
-      }
+      inputShowed = true;
     });
   }
 }
@@ -642,7 +641,10 @@ function getDbData () {
 }
 
 if (document.querySelector('[nqy-quiz="submit"]')) {
-  document.querySelector('[nqy-quiz="submit"]').addEventListener('click', getDbData);
+  const submitBtn = document.querySelector('[nqy-quiz="submit"]');
+  if (!submitBtn.hasAttribute('disabled')) {
+    submitBtn.addEventListener('click', getDbData);
+  }
 }
 
 // sending the user results to the db
