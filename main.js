@@ -642,6 +642,8 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
   const submitBtn = document.querySelector('[nqy-quiz="submit"]');
   if (!submitBtn.hasAttribute('disabled')) {
     submitBtn.addEventListener('click', getDbData);
+  } else {
+    validationError(submitBtn.closest(document.querySelector('[nqy-data="data"]')));
   }
 }
 
