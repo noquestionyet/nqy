@@ -642,14 +642,6 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
   const submitBtn = document.querySelector('[nqy-quiz="submit"]');
   if (!submitBtn.hasAttribute('disabled')) {
     submitBtn.addEventListener('click', getDbData);
-  } else if ((submitBtn.hasAttribute('disabled'))) {
-    submitBtn.addEventListener('click', function () {
-      console.log('smth')
-      console.log(submitBtn)
-      const submitParent = submitBtn.closest(document.querySelector('[nqy-data="data"]'));
-      console.log(submitParent)
-      validationError(submitBtn.closest(document.querySelector('[nqy-data="data"]')));
-    })
   }
 }
 
