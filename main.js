@@ -551,8 +551,6 @@ function showResult () {
       if (filledState) {
         inputShowed = true;
         console.log(inputShowed)
-      } else {
-        checkRequiredFields(inputScreen);
       }
     });
   }
