@@ -261,7 +261,6 @@ if (previousButtons.length !== 0) {
 function nextQuestion (stepNumber, quizForm) {
   const currentQuestion = quizForm.querySelector('.current-question');
   if (filledState) {
-    console.log(filledState)
     savePoints(currentQuestion);
     saveTotalAnswers(currentQuestion);
     saveAnswerText(currentQuestion);
@@ -551,6 +550,7 @@ function showResult () {
       inputScreen.style.display = 'block';
       if (filledState) {
         inputShowed = true;
+        console.log(inputShowed)
       } else {
         checkRequiredFields(inputScreen);
       }
