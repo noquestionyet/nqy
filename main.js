@@ -176,6 +176,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
     } else if (sumbitButton) {
       sumbitButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
+      console.log(`filledState is finally ${filledState}`)
     }
   } else {
     if (nextButton) {
