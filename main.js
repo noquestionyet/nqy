@@ -547,6 +547,8 @@ function showResult () {
   } else {
     console.log(filledState)
     inputScreens.forEach((inputScreen) => {
+      checkRequiredFields(inputScreen);
+
       if (filledState) {
         inputScreen.style.display = 'block';
         inputShowed = true;
