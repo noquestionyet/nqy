@@ -642,20 +642,19 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
   const submitBtn = document.querySelector('[nqy-quiz="submit"]');
   if (!submitBtn.hasAttribute('disabled')) {
     submitBtn.addEventListener('click', getDbData);
-  } else {
-    validationError(submitBtn.closest(document.querySelector('[nqy-data="data"]')));
   }
 }
 
 // sending the user results to the db
 function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, currentUserId) {
+  const quizNameUpdated = quizName.replace(/\W+/g, '_').toLowerCase();
   const finalData = {
     total_points: Number(totalPoints),
     name: userName,
     email: userEmail,
     answers: userAnswers,
     member_uuid: currentUserId,
-    quiz_name: quizName
+    quiz_name: quizNameUpdated
   };
 
   const url = `${apiUrl}/create_participant`
