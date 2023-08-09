@@ -647,13 +647,14 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
 
 // sending the user results to the db
 function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, currentUserId) {
+  const quizNameUpdated = quizName.replace(/\W+/g, '_').toLowerCase();
   const finalData = {
     total_points: Number(totalPoints),
     name: userName,
     email: userEmail,
     answers: userAnswers,
     member_uuid: currentUserId,
-    quiz_name: quizName
+    quiz_name: quizNameUpdated
   };
 
   const url = `${apiUrl}/create_participant`
