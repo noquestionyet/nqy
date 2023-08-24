@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable semi */
 
-const { checkPrime } = require("crypto");
+const { checkPrime } = require('crypto');
 
 // main variables
 let filledState = true;
@@ -149,13 +149,11 @@ function checkRequiredFields (currentQuestion) {
       console.log(field.type)
       if (field.type === 'checkbox') {
         return field.checked;
-      }
-      else if (field.type === 'radio') {
+      } else if (field.type === 'radio') {
         const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
         const checked = Array.from(radioButtons).some(radio => radio.checked);
         console.log(checked)
         return checked;
-      }
       } else if (field.type === 'email') {
         const emailLowerCase = field.value.toLowerCase();
         const emailMatch = emailLowerCase.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
