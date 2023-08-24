@@ -139,7 +139,6 @@ function turnOffNativeForm (quizForm) {
 // call validatation func on every input change
 function checkRequiredFields (currentQuestion) {
   const requiredFields = currentQuestion.querySelectorAll('[required]');
-  console.log(requiredFields)
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
     return Array.from(requiredFields).every(field => {
@@ -632,7 +631,6 @@ checkboxAll.forEach((checkbox) => {
 
 // getting the final data for the db
 function getDbData () {
-  console.log('sending data')
   let userName, userEmail, quizName, totalPoints, userAnswers;
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   sessionStorage.getItem('points') ? totalPoints = sessionStorage.getItem('points') : totalPoints = 'null';
