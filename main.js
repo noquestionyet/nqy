@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable semi */
 
-const { checkPrime } = require('crypto');
-
 // main variables
 let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
