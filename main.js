@@ -632,6 +632,7 @@ checkboxAll.forEach((checkbox) => {
 
 // getting the final data for the db
 function getDbData () {
+  console.log('sending data')
   let userName, userEmail, quizName, totalPoints, userAnswers;
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   sessionStorage.getItem('points') ? totalPoints = sessionStorage.getItem('points') : totalPoints = 'null';
