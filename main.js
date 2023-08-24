@@ -139,11 +139,16 @@ function turnOffNativeForm (quizForm) {
 // call validatation func on every input change
 function checkRequiredFields (currentQuestion) {
   const requiredFields = currentQuestion.querySelectorAll('[required]');
+  console.log(requiredFields)
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
     return Array.from(requiredFields).every(field => {
-      if (field.type === 'checkbox' || field.type === 'radio') {
+      if (field.type === 'checkbox') {
         return field.checked;
+      } else if (field.type === 'radio') {
+        const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
+        const checked = Array.from(radioButtons).some(radio => radio.checked);
+        return checked;
       } else if (field.type === 'email') {
         const emailLowerCase = field.value.toLowerCase();
         const emailMatch = emailLowerCase.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
