@@ -143,14 +143,11 @@ function checkRequiredFields (currentQuestion) {
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
     return Array.from(requiredFields).every(field => {
-      console.log(field)
-      console.log(field.type)
       if (field.type === 'checkbox') {
         return field.checked;
       } else if (field.type === 'radio') {
         const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
         const checked = Array.from(radioButtons).some(radio => radio.checked);
-        console.log(checked)
         return checked;
       } else if (field.type === 'email') {
         const emailLowerCase = field.value.toLowerCase();
