@@ -139,9 +139,12 @@ function turnOffNativeForm (quizForm) {
 // call validatation func on every input change
 function checkRequiredFields (currentQuestion) {
   const requiredFields = currentQuestion.querySelectorAll('[required]');
+  console.log(requiredFields)
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
     return Array.from(requiredFields).every(field => {
+      console.log(field)
+      console.log(field.type)
       if (field.type === 'checkbox' || field.type === 'radio') {
         return field.checked;
       } else if (field.type === 'email') {
