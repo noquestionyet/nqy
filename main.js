@@ -39,12 +39,12 @@ function getMemberStatus (currentUserId) {
     showError(error.message);
   })
 }
-console.log(`user status is ${userStatus}`)
 
 // checking the status of the subscription and setting the main variables based on that
 function activateScript (activeStatus) {
   const currentURL = window.location.hostname;
   currentURL.includes('webflow.io') ? userStatus = true : userStatus = activeStatus;
+  console.log(`user status is ${userStatus}`)
   setFormShowers();
 }
 
