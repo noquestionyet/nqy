@@ -44,7 +44,7 @@ function getMemberStatus (currentUserId) {
 function activateScript (activeStatus) {
   const currentURL = window.location.hostname;
   currentURL.includes('webflow.io') ? userStatus = true : userStatus = activeStatus;
-  console.log(`user status is ${userStatus}`)
+  console.log(`current user status is ${userStatus}`)
   setFormShowers();
 }
 
