@@ -26,9 +26,9 @@ function getMemberStatus (currentUserId) {
     const currentUserPriceId = data.price_id;
     console.log(currentUserPriceId)
     if (currentUserPriceId === paidPlanId) {
-      console.log(expirationDate)
       activeStatus = true;
     } else if (expirationDate && currentDate < expirationDate) {
+      console.log(expirationDate)
       activeStatus = true;
     } else {
       activeStatus = false;
