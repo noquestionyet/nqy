@@ -33,7 +33,7 @@ function getMemberStatus (currentUserId) {
     } else {
       activeStatus = false;
     }
-    console.log(`active status is ${activeStatus}`)
+    console.log(`active status is ${activeStatus}`);
     activateScript(activeStatus);
   }).catch(error => {
     showError(error.message);
