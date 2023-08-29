@@ -27,7 +27,9 @@ function getMemberStatus (currentUserId) {
     console.log(currentUserPriceId)
     if (currentUserPriceId === paidPlanId) {
       console.log(expirationDate)
-      expirationDate && currentDate > expirationDate ? activeStatus = false : activeStatus = true;
+      activeStatus = true;
+    } else if (expirationDate && currentDate < expirationDate) {
+      activeStatus = true;
     } else {
       activeStatus = false;
     }
@@ -197,7 +199,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
 
 // show validation error
 function validationError (currentQuestion) {
-  console.log('error')
+  e.log('error')
   const requiredFields = currentQuestion.querySelectorAll('[required]');
   requiredFields.forEach(field => {
     if (field.type === 'checkbox' || field.type === 'radio') {
