@@ -33,11 +33,13 @@ function getMemberStatus (currentUserId) {
     } else {
       activeStatus = false;
     }
+    console.log(activeStatus)
     activateScript(activeStatus);
   }).catch(error => {
     showError(error.message);
   })
 }
+console.log(`user status is ${userStatus}`)
 
 // checking the status of the subscription and setting the main variables based on that
 function activateScript (activeStatus) {
