@@ -517,6 +517,7 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
+  console.log(inputShowed)
   const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
   const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
