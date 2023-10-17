@@ -90,11 +90,17 @@ quizForms.forEach((quizForm) => {
   }
   // show the total amount of questions
   const totalQuestionsNumbers = quizForm.querySelectorAll('[nqy-question="total"]');
-  console.log(totalQuestionsNumbers)
-  console.log(questionsNumber)
   totalQuestionsNumbers.forEach((totalQuestionsNumber) => {
     totalQuestionsNumber.innerHTML = questionsNumber;
   })
+  // show the total amount of questions in the success message
+  const successMessage = quizForm.nextElementSibling;
+  if (successMessage) {
+    const totalQuestionsNumbersSuccess = successMessage.querySelectorAll('[nqy-question="total"]');
+    totalQuestionsNumbersSuccess.forEach((totalQuestionsNumberSuccess) => {
+      totalQuestionsNumberSuccess.innerHTML = questionsNumber;
+    });
+  }
   // create progress bars
   createProgress(quizForm);
   // hide all questions apart the first
