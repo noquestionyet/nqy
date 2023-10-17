@@ -90,6 +90,8 @@ quizForms.forEach((quizForm) => {
   }
   // show the total amount of questions
   const totalQuestionsNumbers = quizForm.querySelectorAll('[nqy-question="total"]');
+  console.log(totalQuestionsNumbers)
+  console.log(questionsNumber)
   totalQuestionsNumbers.forEach((totalQuestionsNumber) => {
     totalQuestionsNumber.innerHTML = questionsNumber;
   })
