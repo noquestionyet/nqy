@@ -7,6 +7,24 @@ const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
 const paidPlanId = 'prc_deploy-plan-n4ae053s';
 let userStatus = false;
 
+// track user domains
+function trackDomain (currentUserId) {
+  const currentDomain = document.location.hostname;
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+
+  fetch('https://api.noquestionyet.com/api:qCk8f4Ll/live_domain', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: currentUserId,
+      name: currentDomain,
+      time: currentTimestamp
+    })
+  });
+}
+
 // checking the subscription status in the db
 function getMemberStatus (currentUserId) {
   let activeStatus = true;
@@ -844,6 +862,7 @@ function showError (value) {
 document.addEventListener('DOMContentLoaded', () => {
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   getMemberStatus(currentUserId);
+  trackDomain(currentUserId);
   createToastMessage();
   sessionStorage.clear();
 })
