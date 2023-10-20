@@ -680,6 +680,7 @@ if (document.querySelector('[nqy-quiz="submit"]')) {
 
 // sending the user results to the db
 function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, currentUserId) {
+  console.log(userAnswers)
   const quizNameUpdated = quizName.replace(/\W+/g, '_').toLowerCase();
   const finalData = {
     total_points: Number(totalPoints),
