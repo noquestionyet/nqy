@@ -350,7 +350,7 @@ function previousQuestion (quizForm) {
   sessionStorage.setItem('stepFlow', `${newStepFlow}`);
   // delete last text answer from session storage
   const existingAnswers = sessionStorage.getItem('all-answers');
-  const existingAnswersArray = existingAnswers.split(',');
+  const existingAnswersArray = existingAnswers.split(';');
   const newAnswersArray = existingAnswersArray.slice(0, -1);
   const newAnswers = newAnswersArray.toString();
   sessionStorage.setItem('all-answers', `${newAnswers}`);
@@ -498,7 +498,7 @@ function saveAnswerText (currentQuestion) {
     }
   }
   const existingAllAnswers = sessionStorage.getItem('all-answers');
-  existingAllAnswers ? sessionStorage.setItem('all-answers', `${existingAllAnswers},${labelText}`) : sessionStorage.setItem('all-answers', `${labelText}`)
+  existingAllAnswers ? sessionStorage.setItem('all-answers', `${existingAllAnswers};${labelText}`) : sessionStorage.setItem('all-answers', `${labelText}`)
 }
 
 // if we have total right answers, add them to the sessionStorage
