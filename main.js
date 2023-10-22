@@ -565,6 +565,9 @@ function showResult () {
       });
 
       if (matchingResultScreen) {
+        Array.from(resultScreens).forEach(screen => {
+          screen.style.display = 'none';
+        });
         matchingResultScreen.style.display = 'block';
       };
     }
