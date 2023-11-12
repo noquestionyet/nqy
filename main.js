@@ -61,9 +61,25 @@ function getMemberStatus (currentUserId) {
 // checking the status of the subscription and setting the main variables based on that
 function activateScript (activeStatus) {
   const currentURL = window.location.hostname;
-  currentURL.includes('webflow.io') ? userStatus = true : userStatus = activeStatus;
+  if (currentURL.includes('webflow.io')) {
+    showLabel();
+    userStatus = true;
+  } else { userStatus = activeStatus }
   console.log(`current user status is ${userStatus}`)
   setFormShowers();
+}
+
+// show banner for the non paid users
+function showLabel () {
+  const labelWrapper = document.createElement('div');
+  labelWrapper.style.position = 'fixed';
+  labelWrapper.style.bottom = '0.75rem';
+  labelWrapper.style.right = '0.75rem';
+  labelWrapper.style.left = 'auto';
+  labelWrapper.style.top = 'auto';
+  labelWrapper.style.zIndex = '345432354545';
+  labelWrapper.innerHTML = '<a href="https://www.noquestionyet.com/"><img src="https://uploads-ssl.webflow.com/63691009379410bc8c11b90c/65515fa4746087a008b412ef_Label.svg"></a>';
+  document.body.appendChild(labelWrapper);
 }
 
 // hiding quiz name and point number, leaderboard
