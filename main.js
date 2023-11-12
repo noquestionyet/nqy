@@ -61,9 +61,9 @@ function getMemberStatus (currentUserId) {
 // checking the status of the subscription and setting the main variables based on that
 function activateScript (activeStatus) {
   const currentURL = window.location.hostname;
-  if (currentURL.includes('webflow.io')) {
-    showLabel();
+  if (currentURL.includes('webflow.io') && activeStatus === false) {
     userStatus = true;
+    showLabel();
   } else { userStatus = activeStatus }
   console.log(`current user status is ${userStatus}`)
   setFormShowers();
