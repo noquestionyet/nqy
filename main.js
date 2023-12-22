@@ -277,6 +277,9 @@ if (nextButtons.length !== 0) {
         if (stepConditional) {
           findNextQuestion(nextButton);
         }
+        if (!nextStepNumber && stepConditional) {
+          findNextQuestion(nextButton);
+        }
         if (!nextStepNumber && !stepConditional) {
           const currentStep = currentQuestion.getAttribute('nqy-step');
           const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
