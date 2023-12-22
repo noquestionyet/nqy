@@ -334,6 +334,7 @@ function nextQuestion (stepNumber, quizForm) {
 
 // show conditional next question
 function findNextQuestion (currentQuestionNextButton) {
+  console.log('we are in conditional step')
   const currentQuestion = currentQuestionNextButton.closest('[nqy-step]');
   const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
   for (let i = 0; i < radioButtons.length; i++) {
@@ -351,8 +352,10 @@ function previousQuestion (quizForm) {
   const existingStepFlow = sessionStorage.getItem('stepFlow');
   const existingStepFlowArray = existingStepFlow.split(',');
   const previousQuestionNumber = existingStepFlowArray.at(-2);
+  console.log(`previous question is ${previousQuestionNumber}`);
   // changes in the UI
   const previousQuestion = quizForm.querySelector(`[nqy-step='${previousQuestionNumber}']`);
+  console.log(previousQuestion)
   const currentQuestion = quizForm.querySelector('.current-question');
   previousQuestion.classList.add('current-question');
   previousQuestion.style.display = 'block';
