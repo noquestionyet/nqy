@@ -4,7 +4,7 @@ console.log('NQY script is active');
 // main variables
 let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
-const paidPlanId = 'prc_deploy-plan-n4ae053s';
+const paidPlanId = 'prc_7-days-trial-g5r0svp';
 let userStatus = false;
 
 // track user domains
@@ -38,19 +38,27 @@ function getMemberStatus (currentUserId) {
       })
     }
   }).then(data => {
+    console.log(data)
     // check if subscription is not expired
-    const expirationDate = data.memberstack_expiration_date;
-    const currentDate = Math.floor(Date.now() / 1000);
-    const currentUserPriceId = data.price_id;
-    console.log(currentUserPriceId)
-    if (currentUserPriceId === paidPlanId) {
-      activeStatus = true;
-    } else if (expirationDate && currentDate < expirationDate) {
-      console.log(expirationDate)
-      activeStatus = true;
-    } else {
+    // const expirationDate = data.memberstack_expiration_date;
+    // const currentDate = Math.floor(Date.now() / 1000);
+    // const currentUserPriceId = data.price_id;
+    // console.log(currentUserPriceId)
+    const currentStatus = data.status;
+    console.log(currentStatus)
+    if (currentStatus !== 'ACTIVE') {
       activeStatus = false;
+    } else {
+      activeStatus = true;
     }
+    // if (currentUserPriceId === paidPlanId) {
+    // activeStatus = true;
+    // } else if (expirationDate && currentDate < expirationDate) {
+    //  console.log(expirationDate)
+    //  activeStatus = true;
+    // } else {
+    //  activeStatus = false;
+    // }
     console.log(`active status is ${activeStatus}`);
     activateScript(activeStatus);
   }).catch(error => {
@@ -277,9 +285,6 @@ if (nextButtons.length !== 0) {
         if (stepConditional) {
           findNextQuestion(nextButton);
         }
-        if (!nextStepNumber && stepConditional) {
-          findNextQuestion(nextButton);
-        }
         if (!nextStepNumber && !stepConditional) {
           const currentStep = currentQuestion.getAttribute('nqy-step');
           const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
@@ -337,7 +342,6 @@ function nextQuestion (stepNumber, quizForm) {
 
 // show conditional next question
 function findNextQuestion (currentQuestionNextButton) {
-  console.log('we are in conditional step')
   const currentQuestion = currentQuestionNextButton.closest('[nqy-step]');
   const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
   for (let i = 0; i < radioButtons.length; i++) {
