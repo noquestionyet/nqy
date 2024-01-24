@@ -46,7 +46,7 @@ function getMemberStatus (currentUserId) {
     // console.log(currentUserPriceId)
     const currentStatus = data.status;
     console.log(currentStatus)
-    if (currentStatus !== 'ACTIVE' || 'TRIALING') {
+    if (currentStatus !== 'ACTIVE' && currentStatus !== 'TRIALING') {
       activeStatus = false;
     } else {
       activeStatus = true;
