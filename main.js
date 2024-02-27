@@ -332,6 +332,7 @@ function nextQuestion (stepNumber, quizForm) {
     currentQuestion.classList.remove('current-question');
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
+      console.log('step number final')
       showResult();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
@@ -748,6 +749,7 @@ function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, cu
       showError(error.message);
     })
     .finally(() => {
+      console.log('sending data to db')
       showResult();
     })
 };
