@@ -140,6 +140,7 @@ quizForms.forEach((quizForm) => {
     questionStepsArray[i].style.display = 'none';
     if (i === 0) {
       questionStepsArray[i].style.display = 'block';
+      console.log(questionStepsArray[i])
       questionStepsArray[i].classList.add('current-question');
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
@@ -172,6 +173,7 @@ function showForm (formName, splashScreen) {
     const quizFormName = quizForm.getAttribute('nqy-formshow');
     if (quizFormName === formName) {
       quizForm.style.display = 'block';
+      console.log(quizForm)
       splashScreen.style.display = 'none';
       const currentQuestion = quizForm.querySelector('.current-question');
       checkRequiredFields(currentQuestion);
@@ -330,12 +332,12 @@ function nextQuestion (stepNumber, quizForm) {
     currentQuestion.classList.remove('current-question');
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
-      console.log('show final step here');
       showResult();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
       nextQuestion.classList.add('current-question');
       nextQuestion.style.display = 'block';
+      console.log(nextQuestion)
       checkRequiredFields(nextQuestion);
       currentQuestionNumber(nextQuestion, stepNumber);
     }
@@ -369,6 +371,7 @@ function previousQuestion (quizForm) {
   const currentQuestion = quizForm.querySelector('.current-question');
   previousQuestion.classList.add('current-question');
   previousQuestion.style.display = 'block';
+  console.log(previousQuestion)
   currentQuestion.classList.remove('current-question');
   currentQuestion.style.display = 'none';
   currentQuestionNumber(previousQuestion, previousQuestionNumber);
@@ -572,6 +575,7 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
+  console.log('we are in show results')
   const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
   const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
@@ -585,6 +589,7 @@ function showResult () {
     });
 
     if (resultScreens.length === 1) {
+      console.log(resultScreens[0])
       resultScreens[0].style.display = 'block';
     } else {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
