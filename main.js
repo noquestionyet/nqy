@@ -140,7 +140,6 @@ quizForms.forEach((quizForm) => {
     questionStepsArray[i].style.display = 'none';
     if (i === 0) {
       questionStepsArray[i].style.display = 'block';
-      console.log(questionStepsArray[i])
       questionStepsArray[i].classList.add('current-question');
       if (formShowers.length !== 0) {
         quizForm.style.display = 'none';
@@ -173,7 +172,6 @@ function showForm (formName, splashScreen) {
     const quizFormName = quizForm.getAttribute('nqy-formshow');
     if (quizFormName === formName) {
       quizForm.style.display = 'block';
-      console.log(quizForm)
       splashScreen.style.display = 'none';
       const currentQuestion = quizForm.querySelector('.current-question');
       checkRequiredFields(currentQuestion);
@@ -332,13 +330,11 @@ function nextQuestion (stepNumber, quizForm) {
     currentQuestion.classList.remove('current-question');
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
-      console.log('step number final')
       showResult();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
       nextQuestion.classList.add('current-question');
       nextQuestion.style.display = 'block';
-      console.log(nextQuestion)
       checkRequiredFields(nextQuestion);
       currentQuestionNumber(nextQuestion, stepNumber);
     }
@@ -365,14 +361,11 @@ function previousQuestion (quizForm) {
   const existingStepFlow = sessionStorage.getItem('stepFlow');
   const existingStepFlowArray = existingStepFlow.split(',');
   const previousQuestionNumber = existingStepFlowArray.at(-2);
-  console.log(`previous question is ${previousQuestionNumber}`);
   // changes in the UI
   const previousQuestion = quizForm.querySelector(`[nqy-step='${previousQuestionNumber}']`);
-  console.log(previousQuestion)
   const currentQuestion = quizForm.querySelector('.current-question');
   previousQuestion.classList.add('current-question');
   previousQuestion.style.display = 'block';
-  console.log(previousQuestion)
   currentQuestion.classList.remove('current-question');
   currentQuestion.style.display = 'none';
   currentQuestionNumber(previousQuestion, previousQuestionNumber);
@@ -590,7 +583,6 @@ function showResult () {
     });
 
     if (resultScreens.length === 1) {
-      console.log(resultScreens[0])
       resultScreens[0].style.display = 'block';
     } else {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
@@ -698,6 +690,7 @@ checkboxAll.forEach((checkbox) => {
 
 // getting the final data for the db
 function getDbData () {
+  console.log('this is getDBData function')
   let userName, userEmail, quizName, totalPoints, userAnswers;
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   sessionStorage.getItem('points') ? totalPoints = sessionStorage.getItem('points') : totalPoints = 'null';
