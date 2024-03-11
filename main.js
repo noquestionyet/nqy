@@ -571,6 +571,7 @@ let inputShowed = false;
 function showResult () {
   console.log('we are in show results')
   const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
+  console.log(allFinalScreens)
   const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
