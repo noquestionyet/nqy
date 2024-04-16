@@ -332,7 +332,7 @@ function nextQuestion (stepNumber, quizForm) {
     saveTotalAnswers(currentQuestion);
     saveAnswerText(currentQuestion);
     const existingStepFlow = sessionStorage.getItem('stepFlow');
-    existingStepFlow ? sessionStorage.setItem('stepFlow', `${existingStepFlow};${stepNumber}`) : sessionStorage.setItem('stepFlow', `step-1,${stepNumber}`);
+    existingStepFlow ? sessionStorage.setItem('stepFlow', `${existingStepFlow},${stepNumber}`) : sessionStorage.setItem('stepFlow', `step-1,${stepNumber}`);
     currentQuestion.classList.remove('current-question');
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
@@ -385,10 +385,11 @@ function previousQuestion (quizForm) {
   const existingAnswers = sessionStorage.getItem('all-answers');
   const existingAnswersArray = existingAnswers.split(';');
   const newAnswersArray = existingAnswersArray.slice(0, -1);
-  const newAnswers = newAnswersArray.toString();
+  const newAnswers = newAnswersArray.toString(';');
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
-  setNextButtonState(true, currentQuestion);
+  checkRequiredFields(previousQuestion)
+  // setNextButtonState(true, currentQuestion);
 }
 
 // show current question number
