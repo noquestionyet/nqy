@@ -219,6 +219,7 @@ function checkRequiredFields (currentQuestion) {
 // Check if required inputs are filled on every input change
 const currentQuestions = document.querySelectorAll('[nqy-step]');
 currentQuestions.forEach(currentQuestion => {
+  console.log(currentQuestion.querySelectorAll('input'))
   if (currentQuestion.querySelectorAll('input').length > 0) {
     currentQuestion.addEventListener('input', () => {
       const allFieldsFilled = checkRequiredFields(currentQuestion);
@@ -277,7 +278,6 @@ if (nextButtons.length !== 0) {
   nextButtons.forEach((nextButton) => {
     // if we have "next buttons"
     nextButton.addEventListener('click', () => {
-      console.log(nextButton)
       if (userStatus) {
         const quizForm = nextButton.closest('[nqy-form]');
         const nextStepNumber = nextButton.getAttribute('nqy-destination');
@@ -294,10 +294,8 @@ if (nextButtons.length !== 0) {
         }
         if (!nextStepNumber && !stepConditional) {
           const currentStep = currentQuestion.getAttribute('nqy-step');
-          console.log(currentStep)
           const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
           const nextStepNumber = currentStepNumber + 1;
-          console.log(nextStepNumber)
           let nextStep = 'step-' + nextStepNumber;
           const nextQuestionStep = quizForm.querySelector(`[nqy-step='step-${nextStepNumber}']`);
           !nextQuestionStep ? nextStep = 'final' : null;
@@ -341,7 +339,6 @@ function nextQuestion (stepNumber, quizForm) {
       showResult();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
-      console.log(nextQuestion)
       nextQuestion.classList.add('current-question');
       nextQuestion.style.display = 'block';
       checkRequiredFields(nextQuestion);
@@ -580,9 +577,7 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
-  console.log('we are in show results')
   const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
-  console.log(allFinalScreens)
   const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
   const pointNumber = document.querySelectorAll('[nqy-result="points"]');
