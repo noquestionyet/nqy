@@ -368,9 +368,13 @@ function previousQuestion (quizForm) {
   const existingAnswers = sessionStorage.getItem('all-answers');
   const existingAnswersArray = existingAnswers.split(';');
   const newAnswersArray = existingAnswersArray.slice(0, -1);
-  const newAnswers = newAnswersArray.toString();
+  const newAnswers = newAnswersArray.join(';');
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
+  const requiredFieldsFilled = checkRequiredFields(previousQuestion);
+  if (requiredFieldsFilled === true) {
+    setNextButtonState(true, previousQuestion);
+  } else { checkRequiredFields(previousQuestion); }
 }
 
 // show current question number
