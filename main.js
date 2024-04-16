@@ -381,11 +381,13 @@ function previousQuestion (quizForm) {
   const existingAnswers = sessionStorage.getItem('all-answers');
   const existingAnswersArray = existingAnswers.split(';');
   const newAnswersArray = existingAnswersArray.slice(0, -1);
-  const newAnswers = newAnswersArray.join(';');
+  const newAnswers = newAnswersArray.join(';'); // add this to main POLLY - 1 line
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
   checkRequiredFields(previousQuestion);
-  console.log(currentQuestion.querySelectorAll('input'))
+  const test = checkRequiredFields(previousQuestion);
+  console.log(`this is check required fields ${test}`)
+  // add this to main POLLY - 3 lines
   if (previousQuestion.querySelectorAll('input').length === 0) {
     setNextButtonState(true, currentQuestion);
   }
