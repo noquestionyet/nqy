@@ -392,7 +392,7 @@ function previousQuestion (quizForm) {
   console.log(`this is required fields in prev step ${requiredFieldsFilled}`);
 
   if (requiredFieldsFilled === true) {
-    setNextButtonState(true, currentQuestion);
+    setNextButtonState(true, previousQuestion);
   } else { checkRequiredFields(previousQuestion); }
 }
 
