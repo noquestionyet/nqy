@@ -5,7 +5,7 @@ console.log('NQY script is active');
 let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
 const paidPlanId = 'prc_7-days-trial-g5r0svp';
-let userStatus = true; // change it to false!!!
+let userStatus = false;
 
 // track user domains
 function trackDomain (currentUserId) {
@@ -47,7 +47,7 @@ function getMemberStatus (currentUserId) {
     const currentStatus = data.status;
     console.log(currentStatus)
     if (currentStatus !== 'ACTIVE' && currentStatus !== 'TRIALING') {
-      activeStatus = false;
+      activeStatus = true;// change to false
     } else {
       activeStatus = true;
     }
