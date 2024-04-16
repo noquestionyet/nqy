@@ -203,6 +203,7 @@ function checkRequiredFields (currentQuestion) {
       } else if (field.type === 'radio') {
         const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
         const checked = Array.from(radioButtons).some(radio => radio.checked);
+        console.log(checked)
         return checked;
       } else if (field.type === 'email') {
         const emailLowerCase = field.value.toLowerCase();
@@ -331,7 +332,7 @@ function nextQuestion (stepNumber, quizForm) {
     saveTotalAnswers(currentQuestion);
     saveAnswerText(currentQuestion);
     const existingStepFlow = sessionStorage.getItem('stepFlow');
-    existingStepFlow ? sessionStorage.setItem('stepFlow', `${existingStepFlow},${stepNumber}`) : sessionStorage.setItem('stepFlow', `step-1,${stepNumber}`);
+    existingStepFlow ? sessionStorage.setItem('stepFlow', `${existingStepFlow};${stepNumber}`) : sessionStorage.setItem('stepFlow', `step-1,${stepNumber}`);
     currentQuestion.classList.remove('current-question');
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
