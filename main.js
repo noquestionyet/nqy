@@ -194,7 +194,6 @@ function turnOffNativeForm (quizForm) {
 // every time the new question appears, check if there are required fields
 // call validatation func on every input change
 function checkRequiredFields (currentQuestion) {
-  console.log('in check required fields')
   const requiredFields = currentQuestion.querySelectorAll('[required]');
   if (requiredFields.length !== 0) {
     setNextButtonState(false, currentQuestion);
@@ -220,10 +219,12 @@ function checkRequiredFields (currentQuestion) {
 // Check if required inputs are filled on every input change
 const currentQuestions = document.querySelectorAll('[nqy-step]');
 currentQuestions.forEach(currentQuestion => {
-  currentQuestion.addEventListener('input', () => {
-    const allFieldsFilled = checkRequiredFields(currentQuestion);
-    setNextButtonState(allFieldsFilled, currentQuestion);
-  })
+  if (currentQuestion.querySelectorAll('input').length > 0) {
+    currentQuestion.addEventListener('input', () => {
+      const allFieldsFilled = checkRequiredFields(currentQuestion);
+      setNextButtonState(allFieldsFilled, currentQuestion);
+    })
+  } else { setNextButtonState(true, currentQuestion); }
 })
 
 // Enable/disable the next button based on the allFieldsFilled parameter
