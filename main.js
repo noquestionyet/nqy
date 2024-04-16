@@ -232,6 +232,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
   const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
     if (nextButton) {
+      console.log('we are when the fieldsstate true')
       nextButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
     }
