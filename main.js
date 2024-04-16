@@ -385,10 +385,10 @@ function previousQuestion (quizForm) {
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
   checkRequiredFields(previousQuestion);
-  const test = checkRequiredFields(previousQuestion);
+  const requiredFieldsFilled = checkRequiredFields(previousQuestion);
   console.log(`this is check required fields ${test}`)
   // add this to main POLLY - 3 lines
-  if (previousQuestion.querySelectorAll('input').length === 0) {
+  if (requiredFieldsFilled === true) {
     setNextButtonState(true, currentQuestion);
   }
 }
