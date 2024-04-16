@@ -387,6 +387,7 @@ function previousQuestion (quizForm) {
   const newAnswers = newAnswersArray.toString();
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
+  setNextButtonState(true, currentQuestion);
 }
 
 // show current question number
