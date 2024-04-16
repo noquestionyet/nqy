@@ -273,6 +273,7 @@ if (nextButtons.length !== 0) {
   nextButtons.forEach((nextButton) => {
     // if we have "next buttons"
     nextButton.addEventListener('click', () => {
+      console.log(nextButton)
       if (userStatus) {
         const quizForm = nextButton.closest('[nqy-form]');
         const nextStepNumber = nextButton.getAttribute('nqy-destination');
@@ -289,8 +290,10 @@ if (nextButtons.length !== 0) {
         }
         if (!nextStepNumber && !stepConditional) {
           const currentStep = currentQuestion.getAttribute('nqy-step');
+          console.log(currentStep)
           const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
           const nextStepNumber = currentStepNumber + 1;
+          console.log(nextStepNumber)
           let nextStep = 'step-' + nextStepNumber;
           const nextQuestionStep = quizForm.querySelector(`[nqy-step='step-${nextStepNumber}']`);
           !nextQuestionStep ? nextStep = 'final' : null;
