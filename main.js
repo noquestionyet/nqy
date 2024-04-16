@@ -386,12 +386,12 @@ function previousQuestion (quizForm) {
   const newAnswers = newAnswersArray.join(';'); // add this to main POLLY - 1 line
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
-  checkRequiredFields(previousQuestion);
+  // checkRequiredFields(previousQuestion);
   const requiredFieldsFilled = checkRequiredFields(previousQuestion);
   // add this to main POLLY - 3 lines
   if (requiredFieldsFilled === true) {
     setNextButtonState(true, currentQuestion);
-  }
+  } else { checkRequiredFields(previousQuestion); }
 }
 
 // show current question number
