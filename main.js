@@ -386,7 +386,6 @@ function previousQuestion (quizForm) {
   deleteResults();
   checkRequiredFields(previousQuestion);
   const requiredFieldsFilled = checkRequiredFields(previousQuestion);
-  console.log(`this is check required fields ${test}`)
   // add this to main POLLY - 3 lines
   if (requiredFieldsFilled === true) {
     setNextButtonState(true, currentQuestion);
