@@ -324,6 +324,7 @@ if (previousButtons.length !== 0) {
 // show next question
 function nextQuestion (stepNumber, quizForm) {
   const currentQuestion = quizForm.querySelector('.current-question');
+  console.log(filledState)
   if (filledState) {
     savePoints(currentQuestion);
     saveTotalAnswers(currentQuestion);
@@ -336,6 +337,7 @@ function nextQuestion (stepNumber, quizForm) {
       showResult();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
+      console.log(nextQuestion)
       nextQuestion.classList.add('current-question');
       nextQuestion.style.display = 'block';
       checkRequiredFields(nextQuestion);
