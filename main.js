@@ -219,13 +219,10 @@ function checkRequiredFields (currentQuestion) {
 // Check if required inputs are filled on every input change
 const currentQuestions = document.querySelectorAll('[nqy-step]');
 currentQuestions.forEach(currentQuestion => {
-  console.log(currentQuestion.querySelectorAll('input'))
-  if (currentQuestion.querySelectorAll('input').length > 0) {
-    currentQuestion.addEventListener('input', () => {
-      const allFieldsFilled = checkRequiredFields(currentQuestion);
-      setNextButtonState(allFieldsFilled, currentQuestion);
-    })
-  } else { setNextButtonState(true, currentQuestion); }
+  currentQuestion.addEventListener('input', () => {
+    const allFieldsFilled = checkRequiredFields(currentQuestion);
+    setNextButtonState(allFieldsFilled, currentQuestion);
+  })
 })
 
 // Enable/disable the next button based on the allFieldsFilled parameter
@@ -387,8 +384,11 @@ function previousQuestion (quizForm) {
   const newAnswers = newAnswersArray.join(';');
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
-  checkRequiredFields(previousQuestion)
-  // setNextButtonState(true, currentQuestion);
+  checkRequiredFields(previousQuestion);
+  console.log(currentQuestion.querySelectorAll('input'))
+  if (previousQuestion.querySelectorAll('input').length === 0) {
+    setNextButtonState(true, currentQuestion);
+  }
 }
 
 // show current question number
