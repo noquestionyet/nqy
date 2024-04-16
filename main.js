@@ -235,6 +235,7 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
       console.log('we are when the fieldsstate true')
       nextButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
+      console.log(nextButton.style.opacity)
     }
     if (sumbitButton) {
       sumbitButton.style.opacity = '1';
