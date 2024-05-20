@@ -638,6 +638,7 @@ function pointSum () {
         pointSum += num;
       }
     }
+    pointSum = Math.round(pointSum * 100) / 100;
   }
   if (answerString) {
     const quizPointsItem = document.querySelector('[nqy-quiz="points"]');
