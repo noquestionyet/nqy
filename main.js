@@ -633,7 +633,10 @@ function pointSum () {
   if (pointString) {
     const pointArray = pointString.split(',');
     for (let i = 0; i < pointArray.length; i++) {
-      !isNaN(pointArray[i]) ? pointSum += Number(pointArray[i]) : null;
+      const num = parseFloat(pointArray[i]);
+      if (!isNaN(num)) {
+        pointSum += num;
+      }
     }
   }
   if (answerString) {
