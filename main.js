@@ -40,10 +40,10 @@ function getMemberStatus (currentUserId) {
   }).then(data => {
     console.log(data)
     // check if subscription is not expired
-    // const expirationDate = data.memberstack_expiration_date;
-    // const currentDate = Math.floor(Date.now() / 1000);
-    // const currentUserPriceId = data.price_id;
-    // console.log(currentUserPriceId)
+    const expirationDate = data.memberstack_expiration_date;
+    const currentDate = Math.floor(Date.now() / 1000);
+    const currentUserPriceId = data.price_id;
+    console.log(currentUserPriceId)
     const currentStatus = data.status;
     console.log(currentStatus)
     if (currentStatus !== 'ACTIVE' && currentStatus !== 'TRIALING') {
@@ -51,14 +51,14 @@ function getMemberStatus (currentUserId) {
     } else {
       activeStatus = true;
     }
-    // if (currentUserPriceId === paidPlanId) {
-    // activeStatus = true;
-    // } else if (expirationDate && currentDate < expirationDate) {
-    //  console.log(expirationDate)
-    //  activeStatus = true;
-    // } else {
-    //  activeStatus = false;
-    // }
+    if (currentUserPriceId === paidPlanId) {
+      activeStatus = true;
+    } else if (expirationDate && currentDate < expirationDate) {
+      console.log(expirationDate)
+      activeStatus = true;
+    } else {
+      activeStatus = false;
+    }
     console.log(`active status is ${activeStatus}`);
     activateScript(activeStatus);
   }).catch(error => {
@@ -386,11 +386,7 @@ function previousQuestion (quizForm) {
   const newAnswers = newAnswersArray.join(';'); // add this to main POLLY - 1 line
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
-  // checkRequiredFields(previousQuestion);
   const requiredFieldsFilled = checkRequiredFields(previousQuestion);
-  // add this to main POLLY - 3 lines
-  console.log(`this is required fields in prev step ${requiredFieldsFilled}`);
-
   if (requiredFieldsFilled === true) {
     setNextButtonState(true, previousQuestion);
   } else { checkRequiredFields(previousQuestion); }
