@@ -563,7 +563,6 @@ function deleteResults () {
 // if we have points show the custom result message
 let inputShowed = false;
 function showResult () {
-  console.log('this is show result function')
   const allFinalScreens = document.querySelectorAll('[nqy-step="final"]');
   const resultScreens = Array.from(allFinalScreens).filter(element => !element.hasAttribute('nqy-data'));
   const inputScreens = document.querySelectorAll('[nqy-data="data"]');
@@ -578,7 +577,6 @@ function showResult () {
 
     if (resultScreens.length === 1) {
       resultScreens[0].style.display = 'block';
-      console.log(resultScreens.length)
     } else {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
