@@ -320,7 +320,6 @@ function nextQuestion (stepNumber, quizForm) {
     currentQuestion.classList.remove('current-question');
     currentQuestion.style.display = 'none';
     if (stepNumber === 'final') {
-      console.log('in next question the step is final')
       showResult();
     } else {
       const nextQuestion = quizForm.querySelector(`[nqy-step='${stepNumber}']`);
@@ -579,6 +578,7 @@ function showResult () {
 
     if (resultScreens.length === 1) {
       resultScreens[0].style.display = 'block';
+      console.log(resultScreens)
     } else {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
