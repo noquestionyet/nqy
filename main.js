@@ -578,7 +578,7 @@ function showResult () {
 
     if (resultScreens.length === 1) {
       resultScreens[0].style.display = 'block';
-      console.log(resultScreens)
+      console.log(resultScreens.length)
     } else {
       const matchingResultScreen = Array.from(resultScreens).find(resultScreen => {
         const minRange = Number(resultScreen.getAttribute('nqy-range-from'));
