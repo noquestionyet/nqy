@@ -4,101 +4,101 @@ console.log('NQY script is active');
 // main variables
 let filledState = true;
 const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
-const paidPlanId = 'prc_deploy-plan-n4ae053s';
-let userStatus = false;
+// &&const paidPlanId = 'prc_deploy-plan-n4ae053s';
+// &&let userStatus = false;
 
-// track user domains
-function trackDomain (currentUserId) {
-  const currentDomain = document.location.hostname;
-  const currentTimestamp = Math.floor(Date.now() / 1000);
+// // && track user domains
+// function trackDomain (currentUserId) {
+//   const currentDomain = document.location.hostname;
+//   const currentTimestamp = Math.floor(Date.now() / 1000);
 
-  fetch('https://api.noquestionyet.com/api:qCk8f4Ll/live_domain', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id: currentUserId,
-      name: currentDomain,
-      time: currentTimestamp
-    })
-  });
-}
+//   fetch('https://api.noquestionyet.com/api:qCk8f4Ll/live_domain', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       id: currentUserId,
+//       name: currentDomain,
+//       time: currentTimestamp
+//     })
+//   });
+// }
 
-// checking the subscription status in the db
-function getMemberStatus (currentUserId) {
-  let activeStatus = true;
-  const currentMember = fetch(`${apiUrl}/member/${currentUserId}`);
-  currentMember.then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.json().then((text) => {
-        throw new Error(text);
-      })
-    }
-  }).then(data => {
-    console.log(data)
-    // check if subscription is not expired
-    const expirationDate = data.memberstack_expiration_date;
-    const currentDate = Math.floor(Date.now() / 1000);
-    const currentUserPriceId = data.price_id;
-    console.log(currentUserPriceId)
-    const currentStatus = data.status;
-    console.log(currentStatus)
-    if (currentStatus !== 'ACTIVE' && currentStatus !== 'TRIALING') {
-      activeStatus = true;// change to false
-    } else {
-      activeStatus = true;
-    }
-    if (currentUserPriceId === paidPlanId) {
-      activeStatus = true;
-    } else if (expirationDate && currentDate < expirationDate) {
-      console.log(expirationDate)
-      activeStatus = true;
-    } else {
-      activeStatus = false;
-    }
-    console.log(`active status is ${activeStatus}`);
-    activateScript(activeStatus);
-  }).catch(error => {
-    showError(error.message);
-  })
-}
+// && checking the subscription status in the db
+// function getMemberStatus (currentUserId) {
+//   let activeStatus = true;
+//   const currentMember = fetch(`${apiUrl}/member/${currentUserId}`);
+//   currentMember.then(response => {
+//     if (response.ok) {
+//       return response.json();
+//     } else {
+//       return response.json().then((text) => {
+//         throw new Error(text);
+//       })
+//     }
+//   }).then(data => {
+//     console.log(data)
+//     // check if subscription is not expired
+//     const expirationDate = data.memberstack_expiration_date;
+//     const currentDate = Math.floor(Date.now() / 1000);
+//     const currentUserPriceId = data.price_id;
+//     console.log(currentUserPriceId)
+//     const currentStatus = data.status;
+//     console.log(currentStatus)
+//     if (currentStatus !== 'ACTIVE' && currentStatus !== 'TRIALING') {
+//       activeStatus = true;// change to false
+//     } else {
+//       activeStatus = true;
+//     }
+//     if (currentUserPriceId === paidPlanId) {
+//       activeStatus = true;
+//     } else if (expirationDate && currentDate < expirationDate) {
+//       console.log(expirationDate)
+//       activeStatus = true;
+//     } else {
+//       activeStatus = false;
+//     }
+//     console.log(`active status is ${activeStatus}`);
+//     activateScript(activeStatus);
+//   }).catch(error => {
+//     showError(error.message);
+//   })
+// }
 
 // checking the status of the subscription and setting the main variables based on that
-function activateScript (activeStatus) {
-  /* const currentURL = window.location.hostname;
+// function activateScript (activeStatus) {
+/* const currentURL = window.location.hostname;
   if (currentURL.includes('webflow.io') && activeStatus === false) {
     userStatus = true;
     showLabel();
   } else { userStatus = activeStatus }
   */
-  userStatus = activeStatus;
-  console.log(`current user status is ${userStatus}`)
-  setFormShowers();
-}
+// userStatus = activeStatus;
+// console.log(`current user status is ${userStatus}`)
+setFormShowers();
+// }
 
-// show banner for the non paid users
-function showLabel () {
-  const labelWrapper = document.createElement('div');
-  labelWrapper.style.position = 'fixed';
-  labelWrapper.style.bottom = '0.75rem';
-  labelWrapper.style.right = '0.75rem';
-  labelWrapper.style.left = 'auto';
-  labelWrapper.style.top = 'auto';
-  labelWrapper.style.zIndex = '345432354545';
-  labelWrapper.innerHTML = '<a href="https://www.noquestionyet.com/"><img src="https://uploads-ssl.webflow.com/63691009379410bc8c11b90c/65515fa4746087a008b412ef_Label.svg"></a>';
-  document.body.appendChild(labelWrapper);
-}
+// && show banner for the non paid users
+// function showLabel () {
+//   const labelWrapper = document.createElement('div');
+//   labelWrapper.style.position = 'fixed';
+//   labelWrapper.style.bottom = '0.75rem';
+//   labelWrapper.style.right = '0.75rem';
+//   labelWrapper.style.left = 'auto';
+//   labelWrapper.style.top = 'auto';
+//   labelWrapper.style.zIndex = '345432354545';
+//   labelWrapper.innerHTML = '<a href="https://www.noquestionyet.com/"><img src="https://uploads-ssl.webflow.com/63691009379410bc8c11b90c/65515fa4746087a008b412ef_Label.svg"></a>';
+//   document.body.appendChild(labelWrapper);
+// }
 
 // hiding quiz name and point number, leaderboard
 const quizName = document.querySelector('[nqy-quiz="quiz-name"]');
 quizName ? quizName.style.display = 'none' : null;
 const quizPoints = document.querySelector('[nqy-quiz="points"]');
 quizPoints ? quizPoints.style.display = 'none' : null;
-const leaderboardScreen = document.querySelector('[nqy-quiz="leaderboard-result"]');
-leaderboardScreen ? leaderboardScreen.style.display = 'none' : null;
+// && const leaderboardScreen = document.querySelector('[nqy-quiz="leaderboard-result"]');
+// && leaderboardScreen ? leaderboardScreen.style.display = 'none' : null;
 
 // hiding all questions apart from the first
 const quizForms = document.querySelectorAll('[nqy-form]');
@@ -232,10 +232,8 @@ function setNextButtonState (allFieldsFilled, currentQuestion) {
   const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
     if (nextButton) {
-      console.log('we are when the fieldsstate true')
       nextButton.style.opacity = '1';
       filledState = true; // this goes to the show next question function
-      console.log(nextButton.style.opacity)
     }
     if (sumbitButton) {
       sumbitButton.style.opacity = '1';
@@ -277,36 +275,36 @@ if (nextButtons.length !== 0) {
   nextButtons.forEach((nextButton) => {
     // if we have "next buttons"
     nextButton.addEventListener('click', () => {
-      if (userStatus) {
-        const quizForm = nextButton.closest('[nqy-form]');
-        const nextStepNumber = nextButton.getAttribute('nqy-destination');
-        const stepConditional = nextButton.getAttribute('nqy-conditional');
-        const currentQuestion = nextButton.closest('.current-question');
-        const stepCopyTarget = currentQuestion.querySelectorAll('[nqy-source]');
-        // simple logic next step call
-        if (nextStepNumber) {
-          nextQuestion(nextStepNumber, quizForm);
+      // && if (userStatus) {
+      const quizForm = nextButton.closest('[nqy-form]');
+      const nextStepNumber = nextButton.getAttribute('nqy-destination');
+      const stepConditional = nextButton.getAttribute('nqy-conditional');
+      const currentQuestion = nextButton.closest('.current-question');
+      const stepCopyTarget = currentQuestion.querySelectorAll('[nqy-source]');
+      // simple logic next step call
+      if (nextStepNumber) {
+        nextQuestion(nextStepNumber, quizForm);
+      }
+      // conditional logic next step call
+      if (stepConditional) {
+        findNextQuestion(nextButton);
+      }
+      if (!nextStepNumber && !stepConditional) {
+        const currentStep = currentQuestion.getAttribute('nqy-step');
+        const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
+        const nextStepNumber = currentStepNumber + 1;
+        let nextStep = 'step-' + nextStepNumber;
+        const nextQuestionStep = quizForm.querySelector(`[nqy-step='step-${nextStepNumber}']`);
+        !nextQuestionStep ? nextStep = 'final' : null;
+        nextQuestion(nextStep, quizForm);
+      }
+      // add custom content from inputs
+      if (stepCopyTarget) {
+        for (let i = 0; i < stepCopyTarget.length; i++) {
+          addCustomContent(stepCopyTarget[i]);
         }
-        // conditional logic next step call
-        if (stepConditional) {
-          findNextQuestion(nextButton);
-        }
-        if (!nextStepNumber && !stepConditional) {
-          const currentStep = currentQuestion.getAttribute('nqy-step');
-          const currentStepNumber = parseInt(currentStep.match(/\d+/)[0]);
-          const nextStepNumber = currentStepNumber + 1;
-          let nextStep = 'step-' + nextStepNumber;
-          const nextQuestionStep = quizForm.querySelector(`[nqy-step='step-${nextStepNumber}']`);
-          !nextQuestionStep ? nextStep = 'final' : null;
-          nextQuestion(nextStep, quizForm);
-        }
-        // add custom content from inputs
-        if (stepCopyTarget) {
-          for (let i = 0; i < stepCopyTarget.length; i++) {
-            addCustomContent(stepCopyTarget[i]);
-          }
-        }
-      } else { showError('Please, upgrade the plan') }
+      }
+      // && } else { showError('Please, upgrade the plan') }
     })
   })
 }
@@ -913,9 +911,9 @@ function showError (value) {
 
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
-  const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
-  getMemberStatus(currentUserId);
-  trackDomain(currentUserId);
+  // && const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
+  // && getMemberStatus(currentUserId);
+  // && trackDomain(currentUserId);
   createToastMessage();
   sessionStorage.clear();
 })

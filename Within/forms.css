@@ -1,0 +1,421 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+body {
+    font-family: "Inter", sans-serif !important;
+}
+
+h2 {
+    font-family: "Source Serif 4", serif !important;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+/* main form */
+.fsBody .fsForm {
+    width: 100%;
+    max-width: 980px;
+}
+
+/* form page */
+.fsPage {
+    margin-bottom: 48px;
+}
+
+/* section */
+.fsSection {
+    border-bottom: 1px solid #B2B2B1;
+}
+
+/* if no content in the section */
+.empty {
+    display: none;
+}
+
+/* main header */
+.main-header {
+    font-family: "Source Serif 4", serif !important;
+    font-size: 48px;
+    line-height: 1.2;
+    margin-top: 48px;
+    text-align: center;
+}
+
+/* section header */
+.fsBody .fsSectionHeader {
+    padding: 0px;
+    margin-top: 64px;
+    margin-bottom: 24px;
+}
+
+/* input wrapper */
+.fsFieldCell {
+    margin-bottom: 48px;
+}
+
+/* form text inputs */
+.falZgP,
+.ksgMvx,
+.kgXYkg {
+    border-radius: 40px !important;
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 14px;
+}
+
+.falZgP:focus,
+.ksgMvx:focus,
+.kgXYkg:focus,
+.dYRUUk:focus {
+    outline: none;
+}
+
+/* select input */
+.fsFieldSelect {
+    border-radius: 40px !important;
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 14px;
+}
+
+.fsFieldSelect:focus {
+    outline: none;
+}
+
+/* date and time inputs */
+.dYRUUk {
+    border-radius: 40px;
+    height: calc(51px);
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 14px;
+}
+
+/* date and time icons */
+.czTLIx {
+    width: 18px;
+    height: 18px;
+}
+
+/* input labels */
+.fsLabelVertical .fsLabel {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+    margin-bottom: 6px !important;
+}
+
+/* textarea inputs */
+.fsFieldLongAnswer {
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 14px;
+}
+
+.fsFieldLongAnswer:focus {
+    outline: none;
+}
+
+/* signature input */
+.ebWREG {
+    border-radius: 24px;
+}
+
+/* other field input */
+input[data-fs-field-alias="otherValue"] {
+    max-width: 350px !important;
+}
+
+/* text inputs help text */
+.hLPlNn {
+    font-family: "Inter", sans-serif;
+    margin-top: 6px;
+}
+
+/* form checkboxes */
+.bsbdQo {
+    margin: 0px 12px 0px 0px;
+}
+
+.bsbdQo::before {
+    background: #FFFFFF;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 4px;
+}
+
+.bsbdQo:focus::before {
+    outline: none;
+}
+
+.bsbdQo:checked::before {
+    background-image: url(data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20765.2%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M960%2C233.4L468.2%2C725.1c-53.4%2C53.4-140%2C53.4-193.3%2C0L40%2C490.3c-53.4-53.4-53.4-140%2C0-193.3c53.4-53.4%2C140-53.4%2C193.3%2C0%09l138.2%2C138.2L766.6%2C40c53.4-53.4%2C140-53.4%2C193.3%2C0C1013.3%2C93.4%2C1013.3%2C180%2C960%2C233.4z%22%2F%3E%3C%2Fsvg%3E);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: 10px;
+    background-position: 50% 50%;
+}
+
+/* checkboxes wrapper */
+.glshJU {
+    display: flex;
+    flex-direction: column;
+}
+
+/* checkbox labels */
+label.fsOptionLabel {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    font-family: "Inter", sans-serif;
+}
+
+/* form radio buttons */
+.bjMdbX:focus {
+    outline: none;
+}
+
+/* other option */
+.fJWXcP {
+    margin-top: 12px;
+}
+
+/* text input button */
+.fsSaveIncomplete {
+    font-family: "Inter", sans-serif;
+    color: #3FB562;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.fsSaveIncomplete:hover {
+    background-color: transparent;
+}
+
+/* next and previous button wrapper */
+.jnnwJH {
+    justify-content: center;
+}
+
+/* previous, next, submit button */
+.fsPreviousButton,
+.fsNextButton,
+.fsSubmitButton {
+    border-radius: 128px !important;
+    margin-right: 12px;
+    margin-left: 12px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    min-width: 240px;
+}
+
+/* hide button if no button */
+button[aria-hidden="true"] {
+    display: none;
+}
+
+/* upload file text */
+.AsyncFileUploadstyles__StyledDragAndDropContainer-sc-wvu5q-0 {
+    text-align: center;
+}
+
+/* old need to check */
+
+/*
+.fsBody .fieldset-content .fsOptionLabel.horizontal {
+    font-size: 20px;
+    line-height: 23px;
+    width: 100%;
+}
+
+.fsRow .fsFieldRow .fsLastRow {
+    border-bottom: none !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.fsBody .fsFieldRow,
+.fsBody .fsRowBodyl {
+    margin-bottom: 0px !important;
+}
+
+
+
+.fsFieldRow .fsFieldCell {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.fsFieldFocused:not(.fsValidationError).fsSpan100 {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+input.fsSubmitButton {
+    border-radius: 128px !important;
+    margin-right: 12px;
+    margin-left: 12px;
+    min-width: 240px;
+}
+
+
+
+.fsForm .fsSubmit {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+
+
+.fsBody .fsSupporting {
+    font-size: 16px;
+    margin-top: 6px;
+    line-height: 24px;
+}
+
+.fsRowBody input[type=checkbox],
+.fsRowBody input[type=radio] {
+    margin: 0 20px 0 0;
+}
+
+#fsSubmissionCheckmark~.fsSectionText {
+    text-align: center;
+    margin-top: 24px;
+}
+
+#fsSubmissionCheckmark~.fsSectionHeading {
+    text-align: center;
+}
+
+.fsSaveIncomplete {
+    background-color: transparent !important;
+    margin-top: 24px;
+}
+
+.fsSaveIncomplete a {
+    font-size: 17px !important;
+    line-height: 20px;
+    text-decoration-line: underline;
+    color: #707E52 !important;
+}
+
+.reportAbuse a {
+    color: #707E52 !important;
+    font-weight: 400;
+}
+
+
+
+
+
+@media (max-width: 40em) {
+    .main-header {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .fsFieldFocused:not(.fsValidationError).fsSpan100 {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    label.fsOptionLabel {
+        border: none;
+        padding: 0px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .fsBody .fsForm .fsSectionHeading {
+        font-size: 22px;
+        line-height: 30px;
+    }
+
+
+
+    .fsBody .fsForm {
+        overflow: auto;
+        padding-top: 24px;
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+
+    .fsBody .fsFieldRow {
+        overflow: auto;
+    }
+
+    span {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .fsBody .fsRowBody {
+        margin-bottom: 0px;
+    }
+
+    .fsPreviousButton,
+    .fsSubmitButton,
+    .fsNextButton {
+        padding-right: 20px;
+        padding-left: 20px;
+        content: '';
+        margin-top: 6px;
+        margin-bottom: 6px;
+        font-size: 18px !important;
+        line-height: 24px;
+        width: 100% !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+
+    .fsNextButton:before {
+        display: none !important;
+    }
+
+    .fsPreviousButton:before {
+        display: none !important;
+    }
+
+    .fsForm .fsSubmit {
+        flex-direction: column;
+    }
+
+    span.fsFull {
+        display: block !important;
+    }
+
+    #fsHeaderImage {
+        padding: 20px;
+    }
+}
+
+
+
+
+@media (min-width: 1680px) {
+    .fsBody {
+
+        background-size: 1920px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .fsBody {
+
+        background-size: 2880px;
+    }
+}
+
+
+.fsMatrix {
+    font-size: 16px;
+}*/
