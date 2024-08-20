@@ -3,7 +3,7 @@
 console.log('NQY script is active');
 // main variables
 let filledState = true;
-const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
+const apiUrl = 'https://xrrg-54to-f4zf.n7.xano.io/api:84zPS-li';
 const paidPlanId = 'prc_deploy-plan-n4ae053s';
 let userStatus = false;
 
@@ -12,7 +12,7 @@ function trackDomain (currentUserId) {
   const currentDomain = document.location.hostname;
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
-  fetch('https://api.noquestionyet.com/api:qCk8f4Ll/live_domain', {
+  fetch('https://xrrg-54to-f4zf.n7.xano.io/api:qCk8f4Ll/live_domain', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
