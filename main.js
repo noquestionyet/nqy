@@ -38,6 +38,7 @@ function getMemberStatus (currentUserId) {
       })
     }
   }).then(data => {
+    console.log(data)
     // check if subscription is not expired
     const expirationDate = data.memberstack_expiration_date;
     const currentDate = Math.floor(Date.now() / 1000);
@@ -269,6 +270,7 @@ if (nextButtons.length !== 0) {
   nextButtons.forEach((nextButton) => {
     // if we have "next buttons"
     nextButton.addEventListener('click', () => {
+      console.log(userStatus)
       if (userStatus) {
         const quizForm = nextButton.closest('[nqy-form]');
         const nextStepNumber = nextButton.getAttribute('nqy-destination');
