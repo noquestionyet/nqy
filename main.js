@@ -38,12 +38,10 @@ function getMemberStatus (currentUserId) {
       })
     }
   }).then(data => {
-    console.log(data)
     // check if subscription is not expired
     const expirationDate = data.memberstack_expiration_date;
     const currentDate = Math.floor(Date.now() / 1000);
     const currentUserPriceId = data.price_id;
-    console.log(currentUserPriceId)
     const currentStatus = data.status;
     console.log(currentStatus)
     if (currentStatus !== 'ACTIVE' && currentStatus !== 'TRIALING') {
@@ -54,7 +52,6 @@ function getMemberStatus (currentUserId) {
     if (currentUserPriceId === paidPlanId) {
       activeStatus = true;
     } else if (expirationDate && currentDate < expirationDate) {
-      console.log(expirationDate)
       activeStatus = true;
     } else {
       activeStatus = false;
@@ -202,7 +199,6 @@ function checkRequiredFields (currentQuestion) {
       } else if (field.type === 'radio') {
         const radioButtons = currentQuestion.querySelectorAll('input[type="radio"]');
         const checked = Array.from(radioButtons).some(radio => radio.checked);
-        console.log(checked)
         return checked;
       } else if (field.type === 'email') {
         const emailLowerCase = field.value.toLowerCase();
@@ -226,7 +222,6 @@ currentQuestions.forEach(currentQuestion => {
 
 // Enable/disable the next button based on the allFieldsFilled parameter
 function setNextButtonState (allFieldsFilled, currentQuestion) {
-  console.log(`allfiledsfield is ${allFieldsFilled}`)
   const nextButton = currentQuestion.querySelector('[nqy-action="next"]');
   const sumbitButton = currentQuestion.querySelector('[nqy-quiz="submit"]')
   if (allFieldsFilled) {
@@ -322,7 +317,6 @@ if (previousButtons.length !== 0) {
 // show next question
 function nextQuestion (stepNumber, quizForm) {
   const currentQuestion = quizForm.querySelector('.current-question');
-  console.log(filledState)
   if (filledState) {
     savePoints(currentQuestion);
     saveTotalAnswers(currentQuestion);
@@ -699,7 +693,6 @@ checkboxAll.forEach((checkbox) => {
 
 // getting the final data for the db
 function getDbData () {
-  console.log('this is getDBData function')
   let userName, userEmail, quizName, totalPoints, userAnswers;
   const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
   sessionStorage.getItem('points') ? totalPoints = sessionStorage.getItem('points') : totalPoints = 'null';
@@ -714,7 +707,6 @@ function getDbData () {
 if (document.querySelector('[nqy-quiz="submit"]')) {
   const submitBtn = document.querySelector('[nqy-quiz="submit"]');
   if (!submitBtn.hasAttribute('disabled')) {
-    console.log(submitBtn)
     submitBtn.addEventListener('click', getDbData);
   }
 }
@@ -752,7 +744,6 @@ function sendPoints (userName, userEmail, quizName, totalPoints, userAnswers, cu
       showError(error.message);
     })
     .finally(() => {
-      console.log('sending data to db')
       showResult();
     })
 };
