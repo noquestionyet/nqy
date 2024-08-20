@@ -910,10 +910,11 @@ function showError (value) {
 
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
-  const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
+  const currentUserId = document.querySelector('script[data-quiz-id]');
   if (currentUserId) {
-    getMemberStatus(currentUserId);
-    trackDomain(currentUserId);
+    const currentUserIdNum = currentUserId.getAttribute('data-quiz-id');
+    getMemberStatus(currentUserIdNum);
+    trackDomain(currentUserIdNum);
     createToastMessage();
   } else {
     userStatus = true;
