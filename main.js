@@ -71,7 +71,6 @@ function activateScript (activeStatus) {
     userStatus = true;
     // showLabel();
   } else { userStatus = activeStatus }
-  userStatus = activeStatus;
   console.log(`current user status is ${userStatus}`)
   setFormShowers();
 }
