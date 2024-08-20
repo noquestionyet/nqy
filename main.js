@@ -27,7 +27,6 @@ function trackDomain (currentUserId) {
 
 // checking the subscription status in the db
 function getMemberStatus (currentUserId) {
-  console.log('we are in memberstatus data func')
   let activeStatus = true;
   const currentMember = fetch(`${apiUrl}/member/${currentUserId}`);
   currentMember.then(response => {
@@ -39,7 +38,6 @@ function getMemberStatus (currentUserId) {
       })
     }
   }).then(data => {
-    console.log(data)
     // check if subscription is not expired
     const expirationDate = data.memberstack_expiration_date;
     const currentDate = Math.floor(Date.now() / 1000);
@@ -69,7 +67,6 @@ function getMemberStatus (currentUserId) {
 function activateScript (activeStatus) {
   const currentURL = window.location.hostname;
   if (currentURL.includes('webflow.io') && activeStatus === false) {
-    console.log('current URL is staging')
     userStatus = true;
     // showLabel();
   } else { userStatus = activeStatus }
@@ -271,7 +268,6 @@ if (nextButtons.length !== 0) {
   nextButtons.forEach((nextButton) => {
     // if we have "next buttons"
     nextButton.addEventListener('click', () => {
-      console.log(userStatus)
       if (userStatus) {
         const quizForm = nextButton.closest('[nqy-form]');
         const nextStepNumber = nextButton.getAttribute('nqy-destination');
@@ -894,7 +890,6 @@ function createToastMessage () {
 
 // custom error toast message display
 function showError (value) {
-  console.log(value)
   const toastError = document.querySelector('.toast-message');
   toastError.innerHTML = value;
   toastError.style.display = 'block';
@@ -908,7 +903,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentUserId = document.querySelector('script[data-quiz-id]');
   if (currentUserId) {
     const currentUserIdNum = currentUserId.getAttribute('data-quiz-id');
-    console.log(currentUserIdNum)
     getMemberStatus(currentUserIdNum);
     trackDomain(currentUserIdNum);
     createToastMessage();
