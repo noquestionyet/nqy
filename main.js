@@ -27,6 +27,7 @@ function trackDomain (currentUserId) {
 
 // checking the subscription status in the db
 function getMemberStatus (currentUserId) {
+  console.log('we are in memberstatus data func')
   let activeStatus = true;
   const currentMember = fetch(`${apiUrl}/member/${currentUserId}`);
   currentMember.then(response => {
@@ -907,6 +908,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentUserId = document.querySelector('script[data-quiz-id]');
   if (currentUserId) {
     const currentUserIdNum = currentUserId.getAttribute('data-quiz-id');
+    console.log(currentUserIdNum)
     getMemberStatus(currentUserIdNum);
     trackDomain(currentUserIdNum);
     createToastMessage();
