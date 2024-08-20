@@ -891,6 +891,7 @@ function createToastMessage () {
 
 // custom error toast message display
 function showError (value) {
+  console.log(value)
   const toastError = document.querySelector('.toast-message');
   toastError.innerHTML = value;
   toastError.style.display = 'block';
