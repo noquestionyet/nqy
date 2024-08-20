@@ -67,6 +67,7 @@ function getMemberStatus (currentUserId) {
 function activateScript (activeStatus) {
   const currentURL = window.location.hostname;
   if (currentURL.includes('webflow.io') && activeStatus === false) {
+    console.log('current URL is staging')
     userStatus = true;
     // showLabel();
   } else { userStatus = activeStatus }
