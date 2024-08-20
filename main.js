@@ -910,6 +910,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createToastMessage();
   } else {
     userStatus = true;
+    setFormShowers();
   }
   sessionStorage.clear();
 })
