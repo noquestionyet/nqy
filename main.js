@@ -152,8 +152,10 @@ function setFormShowers () {
     formShowers.forEach((formShower) => {
       if (formShower.tagName !== 'A') return;
       const quizFormName = formShower.getAttribute('nqy-formshow');
+      console.log(quizFormName)
       const splashScreen = formShower.closest('[nqy-formshow="formshow"]');
       formShower.addEventListener('click', function () {
+        console.log('form show')
         showForm(quizFormName, splashScreen);
       });
     })
@@ -908,6 +910,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createToastMessage();
   } else {
     userStatus = true;
+    setFormShowers();
   }
   sessionStorage.clear();
 })
