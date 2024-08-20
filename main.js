@@ -3,7 +3,7 @@
 console.log('NQY script is active');
 // main variables
 let filledState = true;
-const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
+const apiUrl = 'https://xrrg-54to-f4zf.n7.xano.io/api:84zPS-li';
 const paidPlanId = 'prc_deploy-plan-n4ae053s';
 let userStatus = false;
 
@@ -12,7 +12,7 @@ function trackDomain (currentUserId) {
   const currentDomain = document.location.hostname;
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
-  fetch('https://api.noquestionyet.com/api:qCk8f4Ll/live_domain', {
+  fetch('https://xrrg-54to-f4zf.n7.xano.io/api:qCk8f4Ll/live_domain', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -42,11 +42,16 @@ function getMemberStatus (currentUserId) {
     const expirationDate = data.memberstack_expiration_date;
     const currentDate = Math.floor(Date.now() / 1000);
     const currentUserPriceId = data.price_id;
-    console.log(currentUserPriceId)
+    const currentStatus = data.status;
+    console.log(currentStatus)
+    if (currentStatus !== 'ACTIVE' && currentStatus !== 'TRIALING') {
+      activeStatus = true;// change to false
+    } else {
+      activeStatus = true;
+    }
     if (currentUserPriceId === paidPlanId) {
       activeStatus = true;
     } else if (expirationDate && currentDate < expirationDate) {
-      console.log(expirationDate)
       activeStatus = true;
     } else {
       activeStatus = false;
@@ -63,24 +68,24 @@ function activateScript (activeStatus) {
   const currentURL = window.location.hostname;
   if (currentURL.includes('webflow.io') && activeStatus === false) {
     userStatus = true;
-    showLabel();
+    // showLabel();
   } else { userStatus = activeStatus }
   console.log(`current user status is ${userStatus}`)
   setFormShowers();
 }
 
-// show banner for the non paid users
-function showLabel () {
-  const labelWrapper = document.createElement('div');
-  labelWrapper.style.position = 'fixed';
-  labelWrapper.style.bottom = '0.75rem';
-  labelWrapper.style.right = '0.75rem';
-  labelWrapper.style.left = 'auto';
-  labelWrapper.style.top = 'auto';
-  labelWrapper.style.zIndex = '345432354545';
-  labelWrapper.innerHTML = '<a href="https://www.noquestionyet.com/"><img src="https://uploads-ssl.webflow.com/63691009379410bc8c11b90c/65515fa4746087a008b412ef_Label.svg"></a>';
-  document.body.appendChild(labelWrapper);
-}
+// && show banner for the non paid users
+// function showLabel () {
+//   const labelWrapper = document.createElement('div');
+//   labelWrapper.style.position = 'fixed';
+//   labelWrapper.style.bottom = '0.75rem';
+//   labelWrapper.style.right = '0.75rem';
+//   labelWrapper.style.left = 'auto';
+//   labelWrapper.style.top = 'auto';
+//   labelWrapper.style.zIndex = '345432354545';
+//   labelWrapper.innerHTML = '<a href="https://www.noquestionyet.com/"><img src="https://uploads-ssl.webflow.com/63691009379410bc8c11b90c/65515fa4746087a008b412ef_Label.svg"></a>';
+//   document.body.appendChild(labelWrapper);
+// }
 
 // hiding quiz name and point number, leaderboard
 const quizName = document.querySelector('[nqy-quiz="quiz-name"]');
@@ -368,7 +373,7 @@ function previousQuestion (quizForm) {
   const existingAnswers = sessionStorage.getItem('all-answers');
   const existingAnswersArray = existingAnswers.split(';');
   const newAnswersArray = existingAnswersArray.slice(0, -1);
-  const newAnswers = newAnswersArray.join(';');
+  const newAnswers = newAnswersArray.join(';'); // add this to main POLLY - 1 line
   sessionStorage.setItem('all-answers', `${newAnswers}`);
   deleteResults();
   const requiredFieldsFilled = checkRequiredFields(previousQuestion);
@@ -895,9 +900,14 @@ function showError (value) {
 
 // clear session storage on load
 document.addEventListener('DOMContentLoaded', () => {
-  const currentUserId = document.querySelector('script[data-quiz-id]').getAttribute('data-quiz-id');
-  getMemberStatus(currentUserId);
-  trackDomain(currentUserId);
-  createToastMessage();
+  const currentUserId = document.querySelector('script[data-quiz-id]');
+  if (currentUserId) {
+    const currentUserIdNum = currentUserId.getAttribute('data-quiz-id');
+    getMemberStatus(currentUserIdNum);
+    trackDomain(currentUserIdNum);
+    createToastMessage();
+  } else {
+    userStatus = true;
+  }
   sessionStorage.clear();
 })
