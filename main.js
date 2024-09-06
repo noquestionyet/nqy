@@ -3,7 +3,7 @@
 console.log('NQY script is active');
 // main variables
 let filledState = true;
-const apiUrl = 'https://xrrg-54to-f4zf.n7.xano.io/api:84zPS-li';
+const apiUrl = 'https://api.noquestionyet.com/api:84zPS-li';
 const paidPlanId = 'prc_deploy-plan-n4ae053s';
 let userStatus = false;
 
@@ -11,8 +11,8 @@ let userStatus = false;
 function trackDomain (currentUserId) {
   const currentDomain = document.location.hostname;
   const currentTimestamp = Math.floor(Date.now() / 1000);
-
-  fetch('https://xrrg-54to-f4zf.n7.xano.io/api:qCk8f4Ll/live_domain', {
+  const liveDomainUrl = `${apiUrl}/live_domain`
+  fetch(liveDomainUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -152,10 +152,8 @@ function setFormShowers () {
     formShowers.forEach((formShower) => {
       if (formShower.tagName !== 'A') return;
       const quizFormName = formShower.getAttribute('nqy-formshow');
-      console.log(quizFormName)
       const splashScreen = formShower.closest('[nqy-formshow="formshow"]');
       formShower.addEventListener('click', function () {
-        console.log('form show')
         showForm(quizFormName, splashScreen);
       });
     })
