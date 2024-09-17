@@ -423,6 +423,7 @@ function addProgressCircleScript (callback) {
 
 // create progress bar
 function createProgress (quizForm) {
+  console.log('we are in create progress')
   const questionSteps = quizForm.querySelectorAll('[nqy-step]');
   let questionNumber = 0;
   let questionAttribute;
@@ -445,6 +446,7 @@ function createProgress (quizForm) {
     updateProgress(questionAttribute, quizForm);
   }
   if (progressCircleIcon) {
+    console.log('we have progress circle')
     addProgressCircleScript(() => {
       updateProgress(questionAttribute, quizForm);
     });
@@ -484,6 +486,7 @@ function updateProgress (stepNumber, quizForm) {
       }
     }
     if (progressBarCircle) {
+      console.log('this is a second circle')
       bar.animate(progress / 100);
       const currentQuestionProgress = progressBarCircle.querySelector('[nqy-progress="current"]');
       const totalQuestionsProgress = progressBarCircle.querySelector('[nqy-progress="total"]');
