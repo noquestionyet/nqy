@@ -460,7 +460,6 @@ function updateProgress (stepNumber, quizForm) {
     progressWrapper ? progressWrapper.style.display = 'none' : null;
   } else {
     const currentQuestionNumber = parseInt(stepNumber.match(/\d+/)[0]);
-    console.log(currentQuestionNumber)
     const questionSteps = quizForm.querySelectorAll('[nqy-step]');
     let questionNumber = 0;
     questionSteps.forEach((questionStep) => {
@@ -486,7 +485,6 @@ function updateProgress (stepNumber, quizForm) {
     }
     if (progressBarCircle) {
       bar.animate(progress / 100);
-      console.log(progress)
       const currentQuestionProgress = progressBarCircle.querySelector('[nqy-progress="current"]');
       const totalQuestionsProgress = progressBarCircle.querySelector('[nqy-progress="total"]');
       currentQuestionProgress.innerHTML = currentQuestionNumber;
