@@ -427,7 +427,7 @@ function createProgress (quizForm) {
   let questionNumber = 0;
   let questionAttribute;
   for (let i = 0; i < questionSteps.length; i++) {
-    questionAttribute = 1;
+    questionAttribute = 'step-1';
     if (questionSteps[i].getAttribute('nqy-step') !== 'final') {
       questionNumber++;
     }
